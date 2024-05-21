@@ -6,7 +6,18 @@
   
 }
 
-
+.content-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('../../../assets/jumbo-jet-volando-cielo.jpg') no-repeat center center;
+  background-size: cover;
+  opacity: 0.5; /* Ajusta la opacidad según sea necesario */
+  z-index: -1; /* Asegura que la imagen de fondo esté detrás del contenido */
+}
 
 .login-card {
   min-height: 70vh; /* Ajusta la altura según sea necesario */
