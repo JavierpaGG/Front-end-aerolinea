@@ -1,0 +1,11 @@
+.titulo-ofertas{
+    border-bottom: 1vh solid rgb(158, 40, 40);
+    width: 10%;
+    margin-bottom: 3vh;
+}
+.card-title{
+    text-align: center;
+}
+.card-text{
+    text-align: justify;
+}

@@ -1,0 +1,12 @@
+.nav-item .nav-link.active {
+    border-bottom: 0.5vh solid #333; /* Establece el borde inferior con un grosor del 0.5% del alto de la ventana */
+    border-radius: 5px 5px 0 0; /* Esquinas redondeadas */
+    padding-bottom: 5px; /* Espacio entre el borde y el texto */
+  }
+  
+  .nav-item .nav-link {
+    transition: border-bottom-color 0.3s ease-in-out; /* Agrega una transición suave para el color del borde */
+  }
+  .navbar-brand img {
+    width: 25vh
+  }

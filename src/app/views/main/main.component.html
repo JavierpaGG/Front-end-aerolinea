@@ -1,0 +1,85 @@
+<div class="center-flex">
+  
+  <app-header/>
+
+  <div class="image-container"></div>
+
+  <div class="content">
+    <div>
+      <div class="info-box">
+        <div>
+        <p class="aeropuerto-salida">Aeropuerto de salida</p>
+        <p class="pais-aeropuerto">Peru (PER)</p>
+        <p class="name-aeropuerto">Aeropuerto Jorge Chavez - PERU</p>
+        <p class="aeropuerto-llegada">Aeropuerto de llegada</p>
+        </div>
+        <div>
+          <mat-form-field class="form-field">
+            <mat-label>Escoge una fecha</mat-label>
+            <input matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matIconSuffix [for]="picker">
+              <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+      </div>
+      <div>
+
+        <mat-form-field class="form-field">
+          <mat-label>Escoge una opción</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let optionsClase of options" [value]="optionsClase.value">
+              {{ optionsClase.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        
+      </div>
+      <div>
+
+        <mat-form-field class="form-field">
+          <mat-label>Pasajeros</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let optionsPasajeros of options" [value]="optionsPasajeros.value">
+              {{ optionsPasajeros.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        
+      </div>
+         <div class="boton-buscar-vuelo">
+        <button mat-button class=".boton-buscar-vuelo button">Buscar Vuelo</button>
+       </div>
+      </div>
+      <div class="overlay-content">
+        <h1>¡Nunca es tarde para viajar!</h1>
+        <div class="box-container">
+          <div class="box">
+            <h4>+7M Pasajeros</h4>
+            <p>Más de 5 millones de pasajeros transportados en 2022</p>
+          </div>
+          <div class="box">
+            <h4>+44 Destinos</h4>
+            <p>Más de 5 millones de pasajeros transportados en 2022</p>
+          </div>
+          <div class="box">
+            <h4>+56 Unidades</h4>
+            <p>Más de 5 millones de pasajeros transportados en 2022</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <app-card/>
+  
+</div>
+
+<div>
+
+  <app-footer/>
+
+</div>
