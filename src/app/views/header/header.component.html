@@ -1,10 +1,9 @@
-<!-- header.component.html -->
 <header>
   <nav class="navbar navbar-expand-lg navbar-light" style="background-color: white">
     <div class="container">
       <!-- Logo -->
       <a class="navbar-brand" href="#">
-        <img src="../../../assets/Logo.png" alt="Logo" width="100">
+        <img src="assets/Logo.png" alt="Logo" width="100">
       </a>
       <!-- Botón de hamburguesa para dispositivos móviles -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,15 +13,21 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" routerLink="/main" routerLinkActive="active"  >Inicio</a>
+            <a class="nav-link" routerLink="/main" routerLinkActive="active">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/login" routerLinkActive="active" >Login</a>
+            <a class="nav-link" routerLink="/hospedaje" routerLinkActive="active">Hospedaje</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/register" routerLinkActive="active" >Registro</a>
+            <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
           </li>
         </ul>
+        <form class="d-flex ms-3" (submit)="onSearch(searchInput.value)">
+          <input #searchInput class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
+          <button class="btn btn-outline-success" type="submit">
+            <i class="fa fa-search"></i>
+          </button>
+        </form>
       </div>
     </div>
   </nav>
