@@ -1,19 +1,160 @@
-  <app-g-header/>
-  <div class="container mt-5">
-    <div class="row">
-      <div class="col-12">
-        <h1 class="text-center mb-4">Gestión de usuarios</h1>
-      </div>
+<app-g-header></app-g-header>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="text-center mb-4">Gestión de usuarios</h1>
     </div>
-    <div class="row">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-header bg-creame text-black">
-            <div class="d-flex justify-content-between align-items-center">
-              <h5>Lista de usuarios</h5>
-              <button type="button" class="btn btn-primary" >
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header bg-creame text-black">
+          <div class="d-flex justify-content-between align-items-center ">
+            <h5 >Lista de usuarios</h5>
+            <div class="custom-input-group">
+              <input type="text" class="form-control" placeholder="Buscar por ID o nombre" [(ngModel)]="filtro">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" (click)="limpiarFiltro()">Limpiar</button>
+              </div>
+            </div>
+            <div >
+              <button type="button" class="btn btn-primary btn-sm" (click)="agregarUsuario()">
                 <i class="fas fa-plus"></i> Agregar usuario
               </button>
             </div>
           </div>
-          <div class="card-body">
+        </div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>DNI</th>
+                <th>Nombre</th>
+                <th>Dirección</th>
+                <th>Teléfono</th>
+                <th>Email</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let usuario of filtrarUsuarios()">
+                <td>{{ usuario.id }}</td>
+                <td>{{ usuario.nombre }}</td>
+                <td>{{ usuario.direccion }}</td>
+                <td>{{ usuario.telefono }}</td>
+                <td>{{ usuario.email }}</td>
+                <td>
+                  <span *ngIf="usuario.estado" class="text-success">
+                    <i class="fas fa-check-circle"></i> Activo
+                  </span>
+                  <span *ngIf="!usuario.estado" class="text-danger">
+                    <i class="fas fa-times-circle"></i> Inactivo
+                  </span>
+                </td>
+                <td>
+                  <i class="fas fa-edit"></i>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-danger btn-sm" (click)="eliminarUsuario(usuario)">
+                    <i class="fas fa-trash-alt"></i> Eliminar
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal" #myModal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Agregar usuario</h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          (click)="closeModal()"
+        >
+          &times;
+        </button>
+      </div>
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="dni">DNI:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="dni"
+              name="dni"
+              [(ngModel)]="nuevoUsuario.id"
+            />
+          </div>
+          <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nombre"
+              name="nombre"
+              [(ngModel)]="nuevoUsuario.nombre"
+            />
+          </div>
+          <div class="form-group">
+            <label for="direccion">Dirección:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="direccion"
+              name="direccion"
+              [(ngModel)]="nuevoUsuario.direccion"
+            />
+          </div>
+          <div class="form-group">
+            <label for="telefono">Teléfono:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="telefono"
+              name="telefono"
+              [(ngModel)]="nuevoUsuario.telefono"
+            />
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+              [(ngModel)]="nuevoUsuario.email"
+            />
+          </div>
+        </form>
+      </div>
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+          (click)="closeModal()"
+        >
+          Cerrar
+        </button>
+        <button type="button" class="btn btn-primary" (click)="enviarDatos()">
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

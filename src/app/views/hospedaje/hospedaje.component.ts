@@ -2,10 +2,11 @@ import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from '../header/header.component';
 import { CommonModule } from '@angular/common';
+import { FooterComponent } from '../footer/footer.component';
 @Component({
   selector: 'app-hospedaje',
   standalone: true,
-  imports: [RouterModule, HeaderComponent,CommonModule],
+  imports: [RouterModule, HeaderComponent,CommonModule,FooterComponent],
   templateUrl: './hospedaje.component.html',
   styleUrl: './hospedaje.component.css'
 })

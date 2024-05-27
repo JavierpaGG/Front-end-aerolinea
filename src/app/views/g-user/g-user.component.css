@@ -1,0 +1,6 @@
+  .custom-input-group {
+    display: flex;
+    align-items: center;
+    margin-right: auto; /* Centra el campo de búsqueda */
+    margin: 3vh; /* Ajusta el margen inferior del grupo de entrada */
+  }

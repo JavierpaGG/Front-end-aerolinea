@@ -1,0 +1,53 @@
+<div class="container mt-5">
+    <h2>Gestión de Hospedajes</h2>
+  
+    <!-- Formulario para añadir/editar hospedajes -->
+    <form (ngSubmit)="onSubmit()" #hospedajeForm="ngForm">
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" id="nombre" class="form-control" [(ngModel)]="currentHospedaje.nombre" name="nombre" required>
+      </div>
+      <div class="mb-3">
+        <label for="descripcion" class="form-label">Descripción</label>
+        <textarea id="descripcion" class="form-control" [(ngModel)]="currentHospedaje.descripcion" name="descripcion" required></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="precio" class="form-label">Precio</label>
+        <input type="number" id="precio" class="form-control" [(ngModel)]="currentHospedaje.precio" name="precio" required>
+      </div>
+      <button type="submit" class="btn btn-primary">
+        <i class="fas fa-save"></i> Guardar
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="resetForm()">
+        <i class="fas fa-undo"></i> Cancelar
+      </button>
+    </form>
+  
+    <!-- Tabla de hospedajes -->
+    <table class="table table-striped mt-5">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Precio</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let hospedaje of hospedajes">
+          <td>{{ hospedaje.nombre }}</td>
+          <td>{{ hospedaje.descripcion }}</td>
+          <td>{{ hospedaje.precio }}</td>
+          <td>
+            <button class="btn btn-warning btn-sm" (click)="editHospedaje(hospedaje)">
+              <i class="fas fa-edit"></i> Editar
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="deleteHospedaje(hospedaje.id)">
+              <i class="fas fa-trash"></i> Borrar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
