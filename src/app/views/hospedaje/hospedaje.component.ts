@@ -3,35 +3,32 @@ import { RouterModule } from '@angular/router';
 import { HeaderComponent } from '../header/header.component';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../footer/footer.component';
+import { HabitacionesComponent } from '../habitaciones/habitaciones.component';
+import { ApiService } from '../../Api/api.service';
+
 @Component({
   selector: 'app-hospedaje',
   standalone: true,
-  imports: [RouterModule, HeaderComponent,CommonModule,FooterComponent],
+  imports: [RouterModule, HeaderComponent,CommonModule,FooterComponent,HabitacionesComponent],
   templateUrl: './hospedaje.component.html',
   styleUrl: './hospedaje.component.css'
 })
 export class HospedajeComponent {
-  hoteles = [
-    { 
-      name: 'Hotel 1', 
-      location: 'Ubicación del Hotel 1', 
-      rooms: 10, 
-      rating: 4.5,
-      image: 'https://via.placeholder.com/400x200?text=Hotel+1' 
-    },
-    { 
-      name: 'Hotel 2', 
-      location: 'Ubicación del Hotel 2', 
-      rooms: 15, 
-      rating: 4.0,
-      image: 'https://via.placeholder.com/400x200?text=Hotel+2' 
-    },
-    { 
-      name: 'Hotel 3', 
-      location: 'Ubicación del Hotel 3', 
-      rooms: 20, 
-      rating: 4.2,
-      image: 'https://via.placeholder.com/400x200?text=Hotel+3' 
-    }
-  ];
+  hoteles: any[] = [];
+
+  constructor(private apiService: ApiService) { }
+
+  ngOnInit() {
+    this.obtenerDatos();
+  }
+  obtenerDatos() {
+    const endpoint = 'hoteles/listar';
+    this.apiService.get(endpoint)
+      .then(data => {
+        this.hoteles = data; // Almacena los datos de los hoteles en el array
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
 }

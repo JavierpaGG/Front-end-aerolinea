@@ -1,0 +1,16 @@
+<app-header/>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4" *ngFor="let habitacion of habitaciones">
+      <div class="card mb-3">
+        <img [src]="habitacion.imagen" class="card-img-top" alt="Imagen de la habitación">
+        <div class="card-body">
+          <p class="ccard-text">Tipo de habitacion: {{ habitacion.tipo_habitacion }}</p>
+          <p class="card-text">Camas: {{ habitacion.cantidad_camas }}</p>
+          <p class="card-text">Precio: {{ habitacion.precio }}</p>
+          <p class="card-text">Capacidad: {{ habitacion.cantidad_personas }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

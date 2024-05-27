@@ -44,7 +44,7 @@
 /* Estilos para los botones de las tarjetas */
 
 .btn-gradient {
-  background: linear-gradient(to right, #ff9966, #ff5e62);
+  background: linear-gradient(to right,#66c7ff, #5e6eff);
   border: none;
   color: white;
   padding: 10px 20px;
@@ -55,5 +55,5 @@
 }
 
 .btn-gradient:hover {
-  background: linear-gradient(to left, #ff9966, #ff5e62);
+  background: linear-gradient(to left, #66c7ff, #5e6eff);
 }

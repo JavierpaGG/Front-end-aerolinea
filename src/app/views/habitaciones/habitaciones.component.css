@@ -1,0 +1,18 @@
+/* habitaciones.component.css */
+.nav-tabs .nav-item {
+    margin-bottom: 0;
+  }
+  
+  .nav-tabs .nav-link {
+    color: #333; /* Color del texto de las pestañas */
+    background-color: #f8f9fa; /* Color de fondo de las pestañas */
+    border: 1px solid #dee2e6; /* Borde de las pestañas */
+    border-radius: 0.25rem 0.25rem 0 0; /* Bordes redondeados en la parte superior */
+  }
+  
+  .nav-tabs .nav-link.active {
+    color: #007bff; /* Color del texto de la pestaña activa */
+    background-color: #fff; /* Color de fondo de la pestaña activa */
+    border-color: #dee2e6 #dee2e6 #fff; /* Bordes de la pestaña activa */
+  }
+  

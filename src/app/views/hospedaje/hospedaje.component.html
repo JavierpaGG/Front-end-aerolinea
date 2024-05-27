@@ -1,18 +1,19 @@
-<app-header/>
+<app-header></app-header>
+
 <div class="container">
-    <div class="row">
-      <div class="col-md-4" *ngFor="let hotel of hoteles">
-        <div class="card mb-3">
-          <img [src]="hotel.image" class="card-img-top" alt="Hotel Image">
-          <div class="card-body">
-            <h5 class="card-title">{{ hotel.name }}</h5>
-            <p class="card-text"><i class="fas fa-map-marker-alt"></i> {{ hotel.location }}</p>
-            <p class="card-text"><i class="fas fa-bed"></i> Habitaciones: {{ hotel.rooms }}</p>
-            <p class="card-text"><i class="fas fa-star"></i> Valoración: {{ hotel.rating }}</p>
-          </div>
+  <div class="row">
+    <div class="col-md-4" *ngFor="let hotel of hoteles">
+      <div class="card mb-3">
+        <img [src]="hotel.imagen" class="card-img-top" alt="Hotel Image">
+        <div class="card-body">
+          <h5 class="card-title">{{ hotel.nombre }}</h5>
+          <p class="card-text"><i class="fas fa-map-marker-alt"></i> {{ hotel.direccion }}</p>
+          <p class="card-text"><i class="fas fa-bed"></i> Categoria: {{ hotel.categoria }}</p>
+          <a [routerLink]="['/habitaciones', hotel.id]" class="btn btn-primary btn-gradient">Ver Habitaciones</a>
         </div>
       </div>
     </div>
   </div>
-<app-footer/>
-  
+</div>
+
+<app-footer></app-footer>

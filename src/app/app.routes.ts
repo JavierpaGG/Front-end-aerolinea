@@ -1,3 +1,4 @@
+import { HabitacionesComponent } from './views/habitaciones/habitaciones.component';
 import { Routes } from '@angular/router';
 import { provideRouter } from '@angular/router';
 import { MainComponent } from './views/main/main.component';
@@ -11,8 +12,6 @@ import { GAdminComponent } from './views/g-admin/g-admin.component';
 import { GUserComponent } from './views/g-user/g-user.component';
 import { GVuelosComponent } from './views/g-vuelos/g-vuelos.component';
 
-
-
 export const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: 'main', component: MainComponent },
@@ -24,7 +23,9 @@ export const routes: Routes = [
   { path: 'g-hospedaje', component: GestionHospedajeComponent },
   { path: 'g-admin', component: GAdminComponent },
   { path: 'g-user', component: GUserComponent },
-  { path: 'g-vuelos', component: GVuelosComponent }
+  { path: 'g-vuelos', component: GVuelosComponent },
+  { path: 'habitaciones/:idHotel', component: HabitacionesComponent },
+
 ];
 
 export const appRouterProviders = [
