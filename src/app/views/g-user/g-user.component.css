@@ -4,3 +4,50 @@
     margin-right: auto; /* Centra el campo de búsqueda */
     margin: 3vh; /* Ajusta el margen inferior del grupo de entrada */
   }
+
+  .btn-gradient-agregar {
+    background: linear-gradient(to right, #66c7ff, #5e6eff);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    
+  }
+  
+  .btn-gradient-agregar:hover {
+    background: linear-gradient(to left, #66c7ff, #5e6eff);
+  }
+
+  .btn-gradient-eliminar {
+    background: linear-gradient(to right,#ff5454, #ff4e4e);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    
+  }
+  
+  .btn-gradient-eliminar:hover {
+    background: linear-gradient(to left, #ff5454, #ff4e4e);
+  }
+  .btn-gradient-cancelar {
+    background: linear-gradient(to right,#b4a7a7, #777271);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    
+  }
+  
+  .btn-gradient-cancelar:hover {
+    background: linear-gradient(to left, #b4a7a7, #777271);
+  }
