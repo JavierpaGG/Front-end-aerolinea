@@ -11,7 +11,7 @@ import { GestionHospedajeComponent } from './views/gestion-hospedaje/gestion-hos
 import { GAdminComponent } from './views/g-admin/g-admin.component';
 import { GUserComponent } from './views/g-user/g-user.component';
 import { GVuelosComponent } from './views/g-vuelos/g-vuelos.component';
-
+import { VuelosComponent } from './views/vuelos/vuelos.component';
 export const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: 'main', component: MainComponent },
@@ -25,7 +25,7 @@ export const routes: Routes = [
   { path: 'g-user', component: GUserComponent },
   { path: 'g-vuelos', component: GVuelosComponent },
   { path: 'habitaciones/:idHotel', component: HabitacionesComponent },
-
+  { path: 'vuelos', component: VuelosComponent },
 ];
 
 export const appRouterProviders = [

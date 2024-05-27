@@ -1,0 +1,4 @@
+.content {
+    min-height: calc(100vh - 50px); /* Ajusta la altura según el tamaño del header */
+  }
+  

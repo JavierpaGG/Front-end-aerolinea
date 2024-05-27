@@ -55,5 +55,8 @@ export class ApiService {
         throw error;
       });
   }
+  searchHotels(query: string) {
+    return this.get(`hoteles/listar?query=${query}`);
+  }
 }
 

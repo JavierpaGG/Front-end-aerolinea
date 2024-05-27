@@ -8,8 +8,10 @@
         <div class="card-body">
           <h5 class="card-title">{{ hotel.nombre }}</h5>
           <p class="card-text"><i class="fas fa-map-marker-alt"></i> {{ hotel.direccion }}</p>
-          <p class="card-text"><i class="fas fa-bed"></i> Categoria: {{ hotel.categoria }}</p>
-          <a [routerLink]="['/habitaciones', hotel.id]" class="btn btn-primary btn-gradient">Ver Habitaciones</a>
+          <p class="card-text"><i class="fas fa-hotel"></i> Categoria: {{ hotel.categoria }}</p>
+          <div>
+            <a [routerLink]="['/habitaciones', hotel.id]" class="btn btn-primary btn-gradient">Ver Habitaciones</a>
+          </div>
         </div>
       </div>
     </div>

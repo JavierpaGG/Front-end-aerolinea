@@ -1,17 +1,26 @@
 <div>
-    <app-header/>
+  <app-header></app-header>
 </div>
+<div class="content">
 <div class="container mt-4">
-    <h2>Resultados de búsqueda para "{{ query }}"</h2>
-    <div *ngIf="searchResults.length > 0; else noResults">
-      <div *ngFor="let result of searchResults" class="card mb-2">
-        <div class="card-body">
-          <h5 class="card-title">{{ result.title }}</h5>
-          <p class="card-text">{{ result.description }}</p>
+  <h4>Resultados de búsqueda para "{{ query }}"</h4>
+
+  <div *ngIf="hotelResults.length > 0; else noResults">
+    <div class="row">
+      <div class="col-md-4" *ngFor="let hotel of hotelResults">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">{{ hotel.nombre }}</h5>
+            <p class="card-text">{{ hotel.direccion }}</p>
+          </div>
         </div>
       </div>
     </div>
-    <ng-template #noResults>
-      <p>No se encontraron resultados.</p>
-    </ng-template>
   </div>
+
+  <ng-template #noResults>
+    <p>No se encontraron resultados.</p>
+  </ng-template>
+</div>
+</div>
+<app-footer></app-footer>

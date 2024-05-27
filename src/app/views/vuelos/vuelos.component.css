@@ -13,3 +13,14 @@
   .btn-gradient:hover {
     background: linear-gradient(to left, #66c7ff, #5e6eff);
   }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.content {
+  min-height: calc(100vh - 50px); /* Ajusta la altura según el tamaño del header */
+}
+

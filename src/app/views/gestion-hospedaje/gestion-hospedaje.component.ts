@@ -3,7 +3,6 @@ import { GHeaderComponent } from '../g-header/g-header.component';
 import { ApiService } from '../../Api/api.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 interface Hospedaje {
   id: number;
   nombre: string;
