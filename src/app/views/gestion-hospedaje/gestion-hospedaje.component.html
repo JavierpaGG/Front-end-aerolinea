@@ -1,54 +1,94 @@
-<app-g-header/>
+<app-g-header></app-g-header>
 <div class="container mt-5">
-    <h2>Gestión de Hospedajes</h2>
-  
-    <!-- Formulario para añadir/editar hospedajes -->
-    <form (ngSubmit)="onSubmit()" #hospedajeForm="ngForm">
-      <div class="mb-3">
-        <label for="nombre" class="form-label">Nombre</label>
-        <input type="text" id="nombre" class="form-control" [(ngModel)]="currentHospedaje.nombre" name="nombre" required>
-      </div>
-      <div class="mb-3">
-        <label for="descripcion" class="form-label">Descripción</label>
-        <textarea id="descripcion" class="form-control" [(ngModel)]="currentHospedaje.descripcion" name="descripcion" required></textarea>
-      </div>
-      <div class="mb-3">
-        <label for="precio" class="form-label">Precio</label>
-        <input type="number" id="precio" class="form-control" [(ngModel)]="currentHospedaje.precio" name="precio" required>
-      </div>
-      <button type="submit" class="btn btn-primary btn-gradient-guardar">
-        <i class="fas fa-save"></i> Guardar
-      </button>
-      <button type="button" class="btn btn-secondary btn-gradient-cancelar" (click)="resetForm()">
-        <i class="fas fa-undo"></i> Cancelar
-      </button>
-    </form>
-  
-    <!-- Tabla de hospedajes -->
-    <table class="table table-striped mt-5">
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Descripción</th>
-          <th>Precio</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let hospedaje of hospedajes">
-          <td>{{ hospedaje.nombre }}</td>
-          <td>{{ hospedaje.descripcion }}</td>
-          <td>{{ hospedaje.precio }}</td>
-          <td>
-            <button class="btn btn-warning btn-sm" (click)="editHospedaje(hospedaje)">
-              <i class="fas fa-edit"></i> Editar
-            </button>
-            <button class="btn btn-danger btn-sm" (click)="deleteHospedaje(hospedaje.id)">
-              <i class="fas fa-trash"></i> Borrar
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="col-12">
+    <h1 class="text-center mb-4">Gestión de Hoteles</h1>
   </div>
-  
+  <div class="card">
+    <div class="card-header">
+      <h5>Lista de hoteles</h5>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addHotelModal">
+        Agregar hotel
+      </button>
+    </div>
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Categoria</th>
+            <th>Imagen</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="hotel.length > 0; else noHotel">
+            <ng-container *ngFor="let hospedaje of hotel">
+              <tr>
+                <td>{{ hospedaje.nombre }}</td>
+                <td>{{ hospedaje.direccion }}</td>
+                <td>{{ hospedaje.categoria }}</td>
+                <td>
+                  <img [src]="hospedaje.imagen" alt="{{ hospedaje.nombre }}" width="100">
+                </td>
+                <td>
+                  <button class="btn btn-warning btn-sm" (click)="editHospedaje(hospedaje)">
+                    <i class="fas fa-edit"></i> Editar
+                  </button>
+                  <button class="btn btn-danger btn-sm" (click)="deleteHospedaje(hospedaje.id)">
+                    <i class="fas fa-trash"></i> Eliminar
+                  </button>
+                  <button class="btn btn-info btn-sm" (click)="toggleHabitaciones(hospedaje)">
+                    <i class="fas fa-bed"></i> Habitaciones
+                  </button>
+                </td>
+              </tr>
+              <tr *ngIf="habitacionesPorHotel[hospedaje.id]">
+                <td colspan="5">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Tipo de Habitación</th>
+                        <th>Cantidad de Camas</th>
+                        <th>Cantidad de Personas</th>
+                        <th>Precio</th>
+                        <th>Imagen</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let habitacion of habitacionesPorHotel[hospedaje.id]">
+                        <td>{{ habitacion.tipoHabitacion }}</td>
+                        <td>{{ habitacion.cantidadCamas }}</td>
+                        <td>{{ habitacion.cantidadPersonas }}</td>
+                        <td>{{ habitacion.precio }}</td>
+                        <td>
+                          <img [src]="habitacion.imagen" alt="{{ habitacion.tipoHabitacion }}" width="100">
+                        </td>
+                        <td>
+                          <button class="btn btn-warning btn-sm" (click)="editHospedaje(hospedaje)">
+                            <i class="fas fa-edit"></i> Editar
+                          </button>
+                          <button class="btn btn-danger btn-sm" (click)="deleteHospedaje(hospedaje.id)">
+                            <i class="fas fa-trash"></i> Eliminar
+                          </button>
+                          <button class="btn btn-info btn-sm" (click)="toggleHabitaciones(hospedaje)">
+                            <i class="fas fa-bed"></i> Habitaciones
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </ng-container>
+          </ng-container>
+          <ng-template #noHotel>
+            <tr>
+              <td colspan="6" class="text-center">No se encontraron hoteles activos</td>
+            </tr>
+          </ng-template>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

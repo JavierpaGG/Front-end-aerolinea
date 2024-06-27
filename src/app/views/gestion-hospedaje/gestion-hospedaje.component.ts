@@ -1,14 +1,11 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { GHeaderComponent } from '../g-header/g-header.component';
-import { ApiService } from '../../Api/api.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-interface Hospedaje {
-  id: number;
-  nombre: string;
-  descripcion: string;
-  precio: number;
-}
+import { Hotel} from '../../models/hotel.model';
+import { HotelService } from '../../controllers/hotel.service';
+import { Habitacion } from '../../models/habitacion.model';
+import { HabitacionService } from '../../controllers/habitacion.service';
 
 @Component({
   selector: 'app-gestion-hospedaje',
@@ -17,57 +14,77 @@ interface Hospedaje {
   templateUrl: './gestion-hospedaje.component.html',
   styleUrl: './gestion-hospedaje.component.css'
 })
-export class GestionHospedajeComponent {
-  hospedajes: Hospedaje[] = [];
-  currentHospedaje: Hospedaje = { id: 0, nombre: '', descripcion: '', precio: 0 };
 
-  constructor(private apiService: ApiService) { }
+export class GestionHospedajeComponent {
+  hotel: any[]=[];
+  nuevoHotel: Hotel = {
+    id: 0,
+    estado: true,
+    nombre: '',
+    direccion: '',
+    categoria: '',
+    imagen: '',
+  };
+  habitacion: any[]=[];
+  nuevoHabitacion: Habitacion = {
+    id:                 0,
+    estado:             true,
+    tipoHabitacion:     '',
+    hotel:              this.nuevoHotel, 
+    cantidadCamas:      0,
+    cantidadPersonas:   0,
+    precio:             0,
+    imagen:             '',
+  }
+  
+  habitacionesPorHotel: { [key: number]: Habitacion[] } = {};
+
+  constructor(private hotelService: HotelService, private habitacionService: HabitacionService) {}
 
   ngOnInit(): void {
     this.loadHospedajes();
   }
 
   loadHospedajes(): void {
-    this.apiService.get('hospedajes').then(data => {
-      this.hospedajes = data;
-    }).catch(error => {
-      console.error('Error al cargar los hospedajes', error);
+    this.hotelService.findAllHotel().subscribe({
+      next: (data: Hotel[]) => {
+        this.hotel = data.filter(hotel => hotel.estado === true);
+      },
+      error: (err) => {
+        console.error('Error loading users', err);
+      }
     });
   }
 
-  onSubmit(): void {
-    if (this.currentHospedaje.id) {
-      // Actualizar hospedaje
-      this.apiService.put(`hospedajes/${this.currentHospedaje.id}`, this.currentHospedaje).then(() => {
-        this.loadHospedajes();
-        this.resetForm();
-      }).catch(error => {
-        console.error('Error al actualizar el hospedaje', error);
-      });
-    } else {
-      // Crear nuevo hospedaje
-      this.apiService.post('hospedajes', this.currentHospedaje).then(() => {
-        this.loadHospedajes();
-        this.resetForm();
-      }).catch(error => {
-        console.error('Error al crear el hospedaje', error);
-      });
-    }
-  }
 
-  editHospedaje(hospedaje: Hospedaje): void {
-    this.currentHospedaje = { ...hospedaje };
+  editHospedaje(hotel: Hotel): void {
+    this.nuevoHotel = { ...hotel };
   }
 
   deleteHospedaje(id: number): void {
-    this.apiService.delete(`hospedajes/${id}`).then(() => {
-      this.loadHospedajes();
-    }).catch(error => {
-      console.error('Error al borrar el hospedaje', error);
+    this.hotelService.deleteById(id).subscribe({
+      next: () => {
+        console.log(`Hotel with id ${id} deleted successfully.`);
+        this.loadHospedajes();
+      },
+      error: (err) => {
+        console.error(`Error deleting hotel with id ${id}:`, err);
+      }
     });
   }
 
-  resetForm(): void {
-    this.currentHospedaje = { id: 0, nombre: '', descripcion: '', precio: 0 };
+  toggleHabitaciones(hotel: Hotel): void {
+    if (this.habitacionesPorHotel[hotel.id]) {
+      delete this.habitacionesPorHotel[hotel.id];
+    } else {
+      this.habitacionService.findRoomByHotel(hotel.id).subscribe({
+        next: (data: Habitacion[]) => {
+          this.habitacionesPorHotel[hotel.id] = data;
+        },
+        error: (err) => {
+          console.error(`Error loading habitaciones for hotel with id ${hotel.id}:`, err);
+        }
+      });
+    }
   }
 }
