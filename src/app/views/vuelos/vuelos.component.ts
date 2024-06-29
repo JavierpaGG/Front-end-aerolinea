@@ -2,6 +2,9 @@ import { HeaderComponent } from './../header/header.component';
 import { Component,OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../footer/footer.component';
+import { Vuelo } from '../../models/vuelo.model';
+import { VueloService } from '../../controllers/vuelo.service';
+
 @Component({
   selector: 'app-vuelos',
   standalone: true,
@@ -10,14 +13,35 @@ import { FooterComponent } from '../footer/footer.component';
   styleUrl: './vuelos.component.css'
 })
 export class VuelosComponent {
-  vuelos: any[] = [
-    { origen: 'Nueva York', destino: 'Los Ángeles', fecha: '2024-06-10', precio: '$200' },
-    { origen: 'Londres', destino: 'París', fecha: '2024-07-15', precio: '£150' },
-    { origen: 'Tokio', destino: 'Sídney', fecha: '2024-08-20', precio: '¥25000' }
-  ];
+  vuelo : any[]=[];
+  nuevoVuelo: Vuelo = {
+    id:                    0,
+    numeroVuelo:           '',
+    aeropuertoOrigenId:    0,
+    aeropuertoLlegadaId:   0,
+    fechaSalida:           new Date(),
+    horaSalida:            '',
+    horaLlegada:           '',
+    duracion:              0,
+    asientosDisponibles:   0,
+    estado:                '',
+    precio:                0,
+  };
 
-  constructor() { }
+  constructor(private vueloService: VueloService){}
 
   ngOnInit(): void {
+    this.loadVuelos();
+  }
+  
+  loadVuelos(): void {
+    this.vueloService.findAllVuelo().subscribe({
+      next: (data: Vuelo[]) => {
+        this.vuelo = data;
+      },
+      error: (err) => {
+        console.error('Error al cargar vuelos', err);
+      }
+    });
   }
 }

@@ -11,32 +11,111 @@
         </div>
       </div>
       <div class="col-md-6">
-        <button class="btn btn-primary btn-gradient"><i class="fas fa-plus "></i> Añadir vuelo</button>
+        <button class="btn btn-primary btn-gradient" (click)="openAddVueloModal()"><i class="fas fa-plus "></i> Añadir vuelo</button>
       </div>
     </div>
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">#</th>
           <th scope="col">N° de vuelo</th>
           <th scope="col">Partida</th>
           <th scope="col">Destino</th>
+          <th scope="col">Fecha de Salida</th>
+          <th scope="col">Hora de Salida</th>
+          <th scope="col">Hora de Llegada</th>
+          <th scope="col">Duración</th>
+          <th scope="col">Asientos</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Precio</th>
           <th scope="col">Opciones</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>FL123</td>
-          <td>New York</td>
-          <td>Los Angeles</td>
-          <td>
-            <button class="btn btn-sm btn-info"><i class="fas fa-eye"></i></button>
-            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
-            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-          </td>
-        </tr>
+        <ng-container *ngIf="vuelo.length > 0; else noVuelo">
+          <ng-container *ngFor="let vuelos of vuelo">
+            <tr>
+              <td>{{vuelos.numeroVuelo}}</td>
+              <td>{{vuelos.aeropuertoOrigenId}}</td>
+              <td>{{vuelos.aeropuertoLlegadaId}}</td>
+              <td>{{vuelos.fechaSalida}}</td>
+              <td>{{vuelos.horaSalida}}</td>
+              <td>{{vuelos.horaLlegada}}</td>
+              <td>{{vuelos.duracion}}</td>
+              <td>{{vuelos.asientosDisponibles}}</td>
+              <td>{{vuelos.estado}}</td>
+              <td>S/. {{vuelos.precio}}</td>
+
+              <td>
+                <button class="btn btn-sm btn-info">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="btn btn-sm btn-warning">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="deleteVuelos(vuelos.id)">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </td>
+              
+
+            </tr>
+          </ng-container>
+        </ng-container>
+        <ng-template #noVuelo>
+          <tr>
+            <td colspan="6" class="text-center">No se encontraron vuelos</td>
+          </tr>
+        </ng-template>
       </tbody>
     </table>
   </div>
   
+
+<!-- Modal para añadir vuelo -->
+<div class="modal fade" id="addVueloModal" tabindex="-1" aria-labelledby="addVueloModalLabel" aria-hidden="true" #addVueloModal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addVueloModalLabel">Añadir Nuevo Vuelo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <!-- Formulario para añadir vuelo -->
+          <div class="mb-3">
+            <label for="numeroVuelo" class="form-label">Número de Vuelo</label>
+            <input type="text" class="form-control" id="numeroVuelo" [(ngModel)]="nuevoVuelo.numeroVuelo" name="numeroVuelo" required>
+          </div>
+          <div class="mb-3">
+            <label for="aeropuertoOrigenId" class="form-label">Aeropuerto de Origen</label>
+            <input type="number" class="form-control" id="aeropuertoOrigenId" [(ngModel)]="nuevoVuelo.aeropuertoOrigenId" name="aeropuertoOrigenId" required>
+          </div>
+          <div class="mb-3">
+            <label for="aeropuertoLlegadaId" class="form-label">Aeropuerto de Llegada</label>
+            <input type="number" class="form-control" id="aeropuertoLlegadaId" [(ngModel)]="nuevoVuelo.aeropuertoLlegadaId" name="aeropuertoLlegadaId" required>
+          </div>
+          <div class="mb-3">
+            <label for="fechaSalida" class="form-label">Fecha de Salida</label>
+            <input type="date" class="form-control" id="fechaSalida" [(ngModel)]="nuevoVuelo.fechaSalida" name="fechaSalida" required>
+          </div>
+          <div class="mb-3">
+            <label for="horaSalida" class="form-label">Hora de Salida</label>
+            <input type="time" class="form-control" id="horaSalida" [(ngModel)]="nuevoVuelo.horaSalida" name="horaSalida" required>
+          </div>
+          <div class="mb-3">
+            <label for="asientosDisponibles" class="form-label">Asientos Disponibles</label>
+            <input type="number" class="form-control" id="asientosDisponibles" [(ngModel)]="nuevoVuelo.asientosDisponibles" name="asientosDisponibles" required>
+          </div>
+          <div class="mb-3">
+            <label for="precio" class="form-label">Precio</label>
+            <input type="number" class="form-control" id="precio" [(ngModel)]="nuevoVuelo.precio" name="precio" required>
+          </div>
+          <button type="button" class="btn btn-primary btn-gradient" (click)="createNuevoVuelo()">Guardar Vuelo</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-gradient-cancelar" data-bs-dismiss="modal" (click)="cerrarModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
