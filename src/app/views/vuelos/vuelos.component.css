@@ -1,5 +1,5 @@
 .btn-gradient {
-  background: linear-gradient(to right, #66c7ff, #5e6eff);
+  background: linear-gradient(to right, #3269ff, #3269ff);
   border: none;
   color: white;
   padding: 10px 20px;
@@ -10,7 +10,8 @@
 }
 
 .btn-gradient:hover {
-  background: linear-gradient(to left, #66c7ff, #5e6eff);
+  background: linear-gradient(to left, #3269ff, #3269ff);
+  font-weight: bold;
 }
 
 html, body {
