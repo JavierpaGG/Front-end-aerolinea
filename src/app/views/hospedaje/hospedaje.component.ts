@@ -4,7 +4,8 @@ import { HeaderComponent } from '../header/header.component';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../footer/footer.component';
 import { HabitacionesComponent } from '../habitaciones/habitaciones.component';
-import { ApiService } from '../../Api/api.service';
+import { Hotel } from '../../models/hotel.model';
+import { HotelService } from '../../controllers/hotel.service';
 
 @Component({
   selector: 'app-hospedaje',
@@ -13,22 +14,25 @@ import { ApiService } from '../../Api/api.service';
   templateUrl: './hospedaje.component.html',
   styleUrl: './hospedaje.component.css'
 })
+
+
 export class HospedajeComponent {
-  hoteles: any[] = [];
+  hoteles: Hotel[] = [];
 
-  constructor(private apiService: ApiService) { }
+  constructor(private hotelService: HotelService) {}
 
-  ngOnInit() {
-    this.obtenerDatos();
+  ngOnInit(): void {
+    this.loadHospedajes();
   }
-  obtenerDatos() {
-    const endpoint = 'hoteles/listar';
-    this.apiService.get(endpoint)
-      .then(data => {
-        this.hoteles = data; // Almacena los datos de los hoteles en el array
-      })
-      .catch(error => {
-        console.error(error);
-      });
+
+  loadHospedajes(): void {
+    this.hotelService.findAllHotel().subscribe({
+      next: (data: Hotel[]) => {
+        this.hoteles = data.filter(hoteles => hoteles.estado === true);
+      },
+      error: (err) => {
+        console.error('Error loading users', err);
+      }
+    });
   }
 }

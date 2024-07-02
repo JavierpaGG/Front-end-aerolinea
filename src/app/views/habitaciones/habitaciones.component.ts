@@ -1,24 +1,25 @@
+import { FooterComponent } from './../footer/footer.component';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ApiService } from '../../Api/api.service';
 import { ActivatedRoute } from '@angular/router';
 import { HeaderComponent } from '../header/header.component';
-declare var $: any;
+import { Habitacion } from '../../models/habitacion.model';
+import { HabitacionService } from '../../controllers/habitacion.service';
 @Component({
   selector: 'app-habitaciones',
   standalone: true,
-  imports: [CommonModule,HeaderComponent],
+  imports: [CommonModule, HeaderComponent, FooterComponent],
   templateUrl: './habitaciones.component.html',
-  styleUrl: './habitaciones.component.css'
+  styleUrls: ['./habitaciones.component.css']
 })
 export class HabitacionesComponent {
-  habitaciones: any[] = [];
+  habitaciones: Habitacion[] = [];
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService) { }
+  constructor(private route: ActivatedRoute, private habitacionService: HabitacionService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      const idHotel = params['idHotel']; // Acceder al parámetro por su nombre, no por su índice
+      const idHotel = params['idHotel']; // Acceder al parámetro por su nombre
 
       if (idHotel) {
         this.obtenerDatos(idHotel);
@@ -27,13 +28,13 @@ export class HabitacionesComponent {
   }
 
   obtenerDatos(idHotel: string) {
-    const endpoint = `hoteles/habitacion/listarHotel/${idHotel}`;
-    this.apiService.get(endpoint)
-      .then(data => {
-        this.habitaciones = data; 
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    this.habitacionService.findRoomByHotel(parseInt(idHotel)).subscribe({
+      next: (data: Habitacion[]) => {
+        this.habitaciones = data.filter(habitacion => habitacion.estado === true);
+      },
+      error: (err) => {
+        console.error('Error loading habitaciones', err);
+      }
+    });
   }
 }

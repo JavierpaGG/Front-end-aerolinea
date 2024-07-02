@@ -29,10 +29,10 @@ export class GestionHospedajeComponent {
   nuevoHabitacion: Habitacion = {
     id:                 0,
     estado:             true,
-    tipoHabitacion:     '',
+    tipo_habitacion:     '',
     hotel:              this.nuevoHotel, 
-    cantidadCamas:      0,
-    cantidadPersonas:   0,
+    cantidad_camas:      0,
+    cantidad_personas:   0,
     precio:             0,
     imagen:             '',
   }

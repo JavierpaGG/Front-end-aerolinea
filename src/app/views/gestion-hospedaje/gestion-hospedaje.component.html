@@ -57,12 +57,12 @@
                     </thead>
                     <tbody>
                       <tr *ngFor="let habitacion of habitacionesPorHotel[hospedaje.id]">
-                        <td>{{ habitacion.tipoHabitacion }}</td>
-                        <td>{{ habitacion.cantidadCamas }}</td>
-                        <td>{{ habitacion.cantidadPersonas }}</td>
+                        <td>{{ habitacion.tipo_habitacion }}</td>
+                        <td>{{ habitacion.cantidad_camas }}</td>
+                        <td>{{ habitacion.cantidad_personas }}</td>
                         <td>{{ habitacion.precio }}</td>
                         <td>
-                          <img [src]="habitacion.imagen" alt="{{ habitacion.tipoHabitacion }}" width="100">
+                          <img [src]="habitacion.imagen" alt="{{ habitacion.tipo_habitacion }}" width="100">
                         </td>
                         <td>
                           <button class="btn btn-warning btn-sm" (click)="editHospedaje(hospedaje)">

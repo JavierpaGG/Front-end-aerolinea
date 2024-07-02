@@ -1,18 +1,17 @@
 .btn-gradient {
-    background: linear-gradient(to right, #66c7ff, #5e6eff);
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-transform: uppercase;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    
-  }
-  
-  .btn-gradient:hover {
-    background: linear-gradient(to left, #66c7ff, #5e6eff);
-  }
+  background: linear-gradient(to right, #66c7ff, #5e6eff);
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-gradient:hover {
+  background: linear-gradient(to left, #66c7ff, #5e6eff);
+}
 
 html, body {
   height: 100%;
@@ -24,3 +23,77 @@ html, body {
   min-height: calc(100vh - 50px); /* Ajusta la altura según el tamaño del header */
 }
 
+.navigation-bar {
+  padding: 10px; /* Espaciado interno */
+  display: flex; /* Hace que los elementos dentro de la barra se comporten como flex */
+  justify-content: space-between; /* Distribuye los elementos horizontalmente con espacio entre ellos */
+}
+
+.btn-group {
+  display: flex; /* Hace que los botones dentro del grupo se comporten como flex */
+}
+
+.btn-group button {
+  margin-right: 0; /* Elimina el margen entre los botones */
+}
+
+.btn-group button:last-child {
+  margin-right: 0; /* Asegura que no haya margen después del último botón */
+}
+
+.vuelos-list {
+  width: 100%;
+}
+
+.card {
+  width: 100%;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.hora-salida, .duracion, .hora-llegada, .precio {
+  font-size: 1.1rem;
+}
+
+.hora-salida {
+  font-weight: bold;
+}
+
+.duracion {
+  text-align: center; /* Centra el texto de duración */
+}
+
+.precio {
+  font-weight: bold;
+}
+
+.row {
+  width: 100%;
+  margin: 0;
+}
+
+.col-4, .col-6, .col-8 {
+  padding: 0 0.5rem;
+}
+
+.text-end {
+  text-align: right;
+  margin-top: 20px;
+}
+
+.line-divider {
+  height: 1px;
+  background-color: #ddd;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}

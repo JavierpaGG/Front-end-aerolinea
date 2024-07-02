@@ -12,6 +12,7 @@ import { GAdminComponent } from './views/g-admin/g-admin.component';
 import { GUserComponent } from './views/g-user/g-user.component';
 import { GVuelosComponent } from './views/g-vuelos/g-vuelos.component';
 import { VuelosComponent } from './views/vuelos/vuelos.component';
+import { BoletosComponent } from './views/boletos/boletos.component';
 export const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: 'main', component: MainComponent },
@@ -26,6 +27,7 @@ export const routes: Routes = [
   { path: 'g-vuelos', component: GVuelosComponent },
   { path: 'habitaciones/:idHotel', component: HabitacionesComponent },
   { path: 'vuelos', component: VuelosComponent },
+  { path: 'boletos/:idBoletos', component: BoletosComponent },
 ];
 
 export const appRouterProviders = [

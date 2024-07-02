@@ -2,10 +2,10 @@ import { Hotel } from "./hotel.model";
 export interface Habitacion {
     id:                 number;
     estado:             boolean;
-    tipoHabitacion:     string;
+    tipo_habitacion:     string;
     hotel:              Hotel; 
-    cantidadCamas:      number;
-    cantidadPersonas:   number;
+    cantidad_camas:      number;
+    cantidad_personas:   number;
     precio:             number;
     imagen:             string;
   }
