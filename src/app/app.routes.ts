@@ -1,3 +1,4 @@
+import { PagosComponent } from './views/pagos/pagos.component';
 import { HabitacionesComponent } from './views/habitaciones/habitaciones.component';
 import { Routes } from '@angular/router';
 import { provideRouter } from '@angular/router';
@@ -13,6 +14,7 @@ import { GUserComponent } from './views/g-user/g-user.component';
 import { GVuelosComponent } from './views/g-vuelos/g-vuelos.component';
 import { VuelosComponent } from './views/vuelos/vuelos.component';
 import { BoletosComponent } from './views/boletos/boletos.component';
+import { GVuelosBoletosComponent } from './views/g-vuelos/g-vuelos-boletos/g-vuelos-boletos.component';
 export const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: 'main', component: MainComponent },
@@ -28,6 +30,8 @@ export const routes: Routes = [
   { path: 'habitaciones/:idHotel', component: HabitacionesComponent },
   { path: 'vuelos', component: VuelosComponent },
   { path: 'boletos/:idBoletos', component: BoletosComponent },
+  { path: 'g-boletos/:idBoletos', component: GVuelosBoletosComponent },
+  { path: 'pagos', component: PagosComponent },
 ];
 
 export const appRouterProviders = [

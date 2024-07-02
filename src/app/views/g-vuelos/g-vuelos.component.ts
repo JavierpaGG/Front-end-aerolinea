@@ -5,11 +5,12 @@ import { VueloService } from '../../controllers/vuelo.service';
 import { CommonModule } from '@angular/common';
 import { Modal } from 'bootstrap';
 import { FormsModule } from '@angular/forms';
-
+import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-g-vuelos',
   standalone: true,
-  imports: [GHeaderComponent, CommonModule, FormsModule],
+  imports: [GHeaderComponent, CommonModule, FormsModule,RouterLink],
   templateUrl: './g-vuelos.component.html',
   styleUrls: ['./g-vuelos.component.css']
 })
@@ -32,7 +33,7 @@ export class GVuelosComponent {
 
   @ViewChild('addVueloModal') addVueloModal!: ElementRef;
 
-  constructor(private vueloService: VueloService) {}
+  constructor(private vueloService: VueloService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadVuelos();
@@ -125,6 +126,17 @@ export class GVuelosComponent {
     const month = ('0' + (date.getMonth() + 1)).slice(-2);
     const day = ('0' + date.getDate()).slice(-2);
     return `${year}-${month}-${day}`;
+  }
+  selectVuelo(vuelo: Vuelo): void {
+    this.vueloSeleccionado = vuelo;
+  }
+
+  navigateToBoletoDetails(): void {
+    if (this.vueloSeleccionado) {
+      this.router.navigate(['/boleto', this.vueloSeleccionado.id]);
+    } else {
+      console.error('No se ha seleccionado ningún vuelo.');
+    }
   }
 }
   

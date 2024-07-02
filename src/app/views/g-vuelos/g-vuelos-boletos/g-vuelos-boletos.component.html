@@ -1,1 +1,35 @@
-<p>g-vuelos-boletos works!</p>
+<div class="container">
+  <h1>Gestión de Boletos para Vuelo {{ vueloId }}</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Número de Boleto</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="boletos.length > 0; else noBoletos">
+        <tr *ngFor="let boleto of boletos">
+          <td>{{ boleto.numeroBoleto }}</td>
+          <td>{{ boleto.precioFinal }}</td>
+          <td>{{ boleto.estado }}</td>
+          <td>
+            <button class="btn btn-sm btn-warning">
+              <i class="fas fa-edit"></i> Editar
+            </button>
+            <button class="btn btn-sm btn-danger">
+              <i class="fas fa-trash"></i> Eliminar
+            </button>
+          </td>
+        </tr>
+      </ng-container>
+      <ng-template #noBoletos>
+        <tr>
+          <td colspan="4" class="text-center">No se encontraron boletos para este vuelo</td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </table>
+</div>
