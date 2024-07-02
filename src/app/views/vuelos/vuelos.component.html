@@ -10,7 +10,7 @@
         class="btn btn-gradient btn-secondary me-2"
         (click)="previousWeek()"
         [disabled]="isPreviousWeekDisabled">
-        &#8249; <!-- Left arrow -->
+        &#8249; <!-- Flecha izquierda -->
       </button>
       
       <div class="btn-group flex-grow-1 d-flex justify-content-center" role="group" aria-label="Navigation Days">
@@ -27,14 +27,19 @@
         type="button" 
         class="btn btn-gradient btn-secondary ms-2"
         (click)="nextWeek()">
-        &#8250; <!-- Right arrow -->
+        &#8250; <!-- Flecha derecha -->
       </button>
     </div>
 
     <div class="vuelos-list">
-      <div class="card mb-4" *ngFor="let vuelo of filteredVuelos">
-        <div class="card-body" (click)="navigateToBoletos(vuelo.id)"> <!-- Agregamos el evento click -->
-          <h5 class="card-title">{{ vuelo.aeropuertoOrigenId }} - {{ vuelo.aeropuertoLlegadaId }}</h5>
+      <div class="card mb-4 pruebas" *ngFor="let vuelo of filteredVuelos">
+        <div class="card-body " (click)="navigateToBoletos(vuelo.id)">
+
+          <h5 class="card-title aiport">
+            <div class ="origen">{{ getNombreAeropuerto(vuelo.aeropuertoOrigenId) }} </div>
+            <div class="llegada">{{ getNombreAeropuerto(vuelo.aeropuertoLlegadaId) }}</div>
+          </h5>
+
           <div class="line-divider"></div>
           <div class="row align-items-center">
             <div class="col-4">

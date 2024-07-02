@@ -1,41 +1,37 @@
+<app-header></app-header>
 <div class="container mt-4">
-    <h2>Boletos Disponibles para el Vuelo ID {{ vueloId }}</h2>
-  
-    <div *ngIf="boletos.length > 0; else noBoletos">
-      <div class="row">
-        <div class="col-md-6 mb-4" *ngFor="let boleto of boletos">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Número de Boleto: {{ boleto.numeroBoleto }}</h5>
-              <p class="card-text">Fecha de Emisión: {{ boleto.fechaEmision  }}</p>
-              <p class="card-text">Precio Final: {{ boleto.precioFinal }}</p>
-              <p class="card-text">Estado: {{ boleto.estado }}</p>
-              <p class="card-text">Método de Pago: {{ boleto.metodoPago }}</p>
-              <p class="card-text">Es Ida y Vuelta: {{ boleto.esIdaYVuelta ? 'Sí' : 'No' }}</p>
-              <p class="card-text">ID Vuelo: {{ boleto.idVuelo }}</p>
-              <h6 class="card-subtitle mt-3">Detalles del Boleto:</h6>
-              <div class="row">
-                <div class="col-md-6" *ngFor="let detalle of boleto.detallesBoleto">
-                  <div class="card mb-3">
-                    <div class="card-body">
-                      <h6 class="card-subtitle">Nombre Completo: {{ detalle.nombreCompleto }}</h6>
-                      <p class="card-text">DNI: {{ detalle.dni }}</p>
-                      <p class="card-text">Asiento: {{ detalle.asiento }}</p>
-                      <p class="card-text">Categoría de Viaje: {{ detalle.categoriaViaje }}</p>
-                      <p class="card-text">Es Ida: {{ detalle.esIda ? 'Sí' : 'No' }}</p>
-                      <p class="card-text">Precio Unitario: {{ detalle.precioUnitario }}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+  <div *ngIf="boletos.length > 0; else noBoletos">
+    <div class="row">
+      <div class="col-md-6" *ngFor="let boleto of boletos">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Boleto {{ boleto.numeroBoleto }}</h5>
+            <p class="card-text"><strong>Fecha de Emisión:</strong> {{ boleto.fechaEmision | date }}</p>
+            <p class="card-text"><strong>Estado:</strong> {{ boleto.estado }}</p>
+            <p class="card-text"><strong>Método de Pago:</strong> {{ boleto.metodoPago }}</p>
+            <p class="card-text"><strong>Precio Final:</strong> ${{ boleto.precioFinal }}</p>
+            
+            <h6 class="mt-3">Detalles del Boleto:</h6>
+            <ul class="list-group">
+              <li class="list-group-item" *ngFor="let detalle of boleto.detallesBoleto">
+                <p><strong>Nombre:</strong> {{ detalle.nombreCompleto }}</p>
+                <p><strong>DNI:</strong> {{ detalle.dni }}</p>
+                <p><strong>Asiento:</strong> {{ detalle.asiento }}</p>
+                <p><strong>Categoría de Viaje:</strong> {{ detalle.categoriaViaje }}</p>
+                <p><strong>Es Ida:</strong> {{ detalle.esIda ? 'Sí' : 'No' }}</p>
+                <p><strong>Precio Unitario:</strong> ${{ detalle.precioUnitario }}</p>
+              </li>
+            </ul>
+            
+            <button class="btn btn-primary mt-3" (click)="irAPaginaDePagos(boleto)">Comprar Boleto</button>
           </div>
         </div>
       </div>
     </div>
-  
-    <ng-template #noBoletos>
-      <p>No hay boletos disponibles para el vuelo seleccionado.</p>
-    </ng-template>
   </div>
-  
+
+  <ng-template #noBoletos>
+    <p class="text-center mt-5">No hay boletos disponibles.</p>
+  </ng-template>
+</div>
+<app-footer/>

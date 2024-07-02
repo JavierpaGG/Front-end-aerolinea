@@ -31,6 +31,27 @@ export class GVuelosComponent {
     precio: 0,
   };
 
+  aeropuertos: { id: number, nombre: string }[] = [
+    { id: 1, nombre: "LIM - LIMA" },
+    { id: 2, nombre: "AQP - AREQUIPA" },
+    { id: 3, nombre: "CUZ - CUSCO" },
+    { id: 4, nombre: "TRU - TRUJILLO" },
+    { id: 5, nombre: "CIX - CHICLAYO" },
+    { id: 6, nombre: "PIU - PIURA" },
+    { id: 7, nombre: "IQT - IQUITOS" },
+    { id: 8, nombre: "TCQ - TACNA" },
+    { id: 9, nombre: "JUL - PUNO" },
+    { id: 10, nombre: "PEM - TARAPOTO" },
+    { id: 11, nombre: "AYP - JULIACA" },
+    { id: 12, nombre: "TBP - PUERTO MALDONADO" },
+    { id: 13, nombre: "CHM - AYACUCHO" },
+    { id: 14, nombre: "HUU - TUMBES" },
+    { id: 15, nombre: "PCL - CHIMBOTE" },
+    { id: 16, nombre: "CJA - HUANCAYO" },
+    { id: 17, nombre: "JJI - PUCALPPA" },
+    { id: 18, nombre: "PIO - CAJAMARCA" }
+  ];
+
   @ViewChild('addVueloModal') addVueloModal!: ElementRef;
 
   constructor(private vueloService: VueloService, private router: Router) {}
@@ -53,11 +74,11 @@ export class GVuelosComponent {
   deleteVuelos(id: number): void {
     this.vueloService.deleteById(id).subscribe({
       next: () => {
-        console.log(`Hotel with id ${id} deleted successfully.`);
+        console.log(`Vuelo con id ${id} eliminado exitosamente.`);
         this.loadVuelos();
       },
       error: (err) => {
-        console.error(`Error deleting hotel with id ${id}:`, err);
+        console.error(`Error al eliminar el vuelo con id ${id}:`, err);
       }
     });
   }
@@ -73,7 +94,6 @@ export class GVuelosComponent {
         }
         this.loadVuelos();
       },
-      
       error: (err) => {
         console.error('Error al crear vuelo:', err);
       }
@@ -95,6 +115,7 @@ export class GVuelosComponent {
       precio: 0,
     };
   }
+
   cerrarModal(): void {
     const modalElement = document.getElementById('addVueloModal');
     if (modalElement) {
@@ -102,6 +123,7 @@ export class GVuelosComponent {
       modal.hide();
     }
   }
+
   openAddVueloModal(): void {
     const modalElement = this.addVueloModal.nativeElement;
     const modal = new Modal(modalElement);
@@ -121,23 +143,21 @@ export class GVuelosComponent {
       }
     });
   }
-  private formatDate(date: Date): string {
-    const year = date.getFullYear();
-    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-    const day = ('0' + date.getDate()).slice(-2);
-    return `${year}-${month}-${day}`;
-  }
+
   selectVuelo(vuelo: Vuelo): void {
     this.vueloSeleccionado = vuelo;
   }
 
   navigateToBoletoDetails(): void {
     if (this.vueloSeleccionado) {
-      this.router.navigate(['/boleto', this.vueloSeleccionado.id]);
+      this.router.navigate(['/g-boletos']);
     } else {
       console.error('No se ha seleccionado ningún vuelo.');
     }
   }
-}
   
- 
+  getAeropuertoNombre(id: number): string {
+    const aeropuerto = this.aeropuertos.find(a => a.id === id);
+    return aeropuerto ? aeropuerto.nombre : 'Desconocido';
+  }
+}

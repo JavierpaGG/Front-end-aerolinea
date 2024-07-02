@@ -21,9 +21,30 @@ export class VuelosComponent implements OnInit {
   currentWeekStart: Date = this.getStartOfWeek(new Date());
   isPreviousWeekDisabled: boolean = true;
 
+  aeropuertos: { id: number, nombre: string }[] = [
+    { id: 1, nombre: "LIM - LIMA" },
+    { id: 2, nombre: "AQP - AREQUIPA" },
+    { id: 3, nombre: "CUZ - CUSCO" },
+    { id: 4, nombre: "TRU - TRUJILLO" },
+    { id: 5, nombre: "CIX - CHICLAYO" },
+    { id: 6, nombre: "PIU - PIURA" },
+    { id: 7, nombre: "IQT - IQUITOS" },
+    { id: 8, nombre: "TCQ - TACNA" },
+    { id: 9, nombre: "JUL - PUNO" },
+    { id: 10, nombre: "PEM - TARAPOTO" },
+    { id: 11, nombre: "AYP - JULIACA" },
+    { id: 12, nombre: "TBP - PUERTO MALDONADO" },
+    { id: 13, nombre: "CHM - AYACUCHO" },
+    { id: 14, nombre: "HUU - TUMBES" },
+    { id: 15, nombre: "PCL - CHIMBOTE" },
+    { id: 16, nombre: "CJA - HUANCAYO" },
+    { id: 17, nombre: "JJI - PUCALPPA" },
+    { id: 18, nombre: "PIO - CAJAMARCA" }
+  ];
+
   constructor(
     private vueloService: VueloService,
-    private router: Router // Inyectamos el Router
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -96,7 +117,14 @@ export class VuelosComponent implements OnInit {
     const today = this.getStartOfWeek(new Date());
     this.isPreviousWeekDisabled = this.currentWeekStart <= today;
   }
-  navigateToBoletos(idBoletos: number): void {
-    this.router.navigate(['/boletos', idBoletos]); // Navegar a la ruta para generar boletos con el id del vuelo
+
+  navigateToBoletos(idVuelo: number): void {
+    this.router.navigate(['/boletos']);
+  }
+  
+
+  getNombreAeropuerto(id: number): string {
+    const aeropuerto = this.aeropuertos.find(a => a.id === id);
+    return aeropuerto ? aeropuerto.nombre : 'Aeropuerto no encontrado';
   }
 }

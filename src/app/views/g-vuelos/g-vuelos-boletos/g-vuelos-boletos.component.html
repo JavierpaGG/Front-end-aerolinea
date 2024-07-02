@@ -1,20 +1,24 @@
 <div class="container">
-  <h1>Gestión de Boletos para Vuelo {{ vueloId }}</h1>
+  <h1>Gestión de Boletos para Vuelo</h1>
   <table class="table">
     <thead>
       <tr>
         <th scope="col">Número de Boleto</th>
+        <th scope="col">Fecha</th>
         <th scope="col">Precio</th>
         <th scope="col">Estado</th>
         <th scope="col">Acciones</th>
+
       </tr>
     </thead>
     <tbody>
       <ng-container *ngIf="boletos.length > 0; else noBoletos">
         <tr *ngFor="let boleto of boletos">
           <td>{{ boleto.numeroBoleto }}</td>
+          <td>{{ boleto.fechaEmision | date }}</td>
           <td>{{ boleto.precioFinal }}</td>
           <td>{{ boleto.estado }}</td>
+          <td>{{ boleto.fechaEmision | date }}</td>
           <td>
             <button class="btn btn-sm btn-warning">
               <i class="fas fa-edit"></i> Editar

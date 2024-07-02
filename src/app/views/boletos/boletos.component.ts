@@ -1,43 +1,51 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Boleto } from '../../models/boleto.model';
 import { BoletoService } from '../../controllers/boleto.service';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { HeaderComponent } from '../header/header.component';
+import { FooterComponent } from '../footer/footer.component';
 @Component({
   selector: 'app-boletos',
   standalone: true,
-  imports: [],
+  imports: [CommonModule,HeaderComponent,FooterComponent],
   templateUrl: './boletos.component.html',
   styleUrl: './boletos.component.css'
 })
 export class BoletosComponent implements OnInit {
-  vueloId: number = 0; // Inicializado con un valor por defecto
   boletos: Boleto[] = [];
 
   constructor(
-    private route: ActivatedRoute,
+    private router: Router, // Inyecta el servicio Router
     private boletoService: BoletoService
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.vueloId = +params['idBoletos']; // Obtener el id del vuelo desde los parámetros de la ruta
-      // this.loadBoletos();
-    });
+    this.loadBoletos();
   }
 
-  // loadBoletos(): void {
-  //   this.boletoService.getBoletoById(this.vueloId).subscribe({
-  //     next: (data: Boleto) => {
-  //       // Aquí se espera recibir un solo Boleto, no un arreglo de Boleto[]
-  //       if (data) {
-  //         this.boletos = [data]; // Convertir el Boleto recibido en un arreglo de un solo elemento
-  //       } else {
-  //         this.boletos = []; // Si no se encuentra ningún boleto, se asigna un arreglo vacío
-  //       }
-  //     },
-  //     error: (error) => {
-  //       console.error('Error al cargar los boletos', error);
-  //     }
-  //   });
-  // }
+  loadBoletos() {
+    this.boletoService.getAllBoletos().subscribe(
+      (data: Boleto[]) => {
+        this.boletos = data;
+      },
+      (error) => {
+        console.error('Error fetching boletos', error);
+      }
+    );
+  }
+
+  deleteBoleto(id: number) {
+    this.boletoService.deleteBoletoById(id).subscribe(
+      () => {
+        this.loadBoletos();
+      },
+      (error) => {
+        console.error('Error deleting boleto', error);
+      }
+    );
+  }
+  irAPaginaDePagos(boleto: Boleto) {
+    this.router.navigate(['/pagos', boleto.id]);
+  }
 }
