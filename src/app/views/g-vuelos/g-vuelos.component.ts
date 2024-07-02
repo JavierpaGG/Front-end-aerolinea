@@ -87,10 +87,10 @@ export class GVuelosComponent {
     this.vueloService.createVuelo(this.nuevoVuelo).subscribe({
       next: (createdVuelo: Vuelo) => {
         console.log('Vuelo creado:', createdVuelo);
-        this.clearNuevoVuelo(); // Limpiar los campos del formulario después de guardar
+        this.clearNuevoVuelo();
         const modalElement = document.getElementById('addVueloModal');
         if (modalElement) {
-          modalElement.classList.remove('show'); // Remover la clase 'show' que mantiene el modal visible
+          modalElement.classList.remove('show');
         }
         this.loadVuelos();
       },

@@ -17,9 +17,9 @@ import { User } from '../../models/user.model';
 
 
 export class GUserComponent {
-  @ViewChild('myModal') myModal: any; // ViewChild para acceder al modal en el componente
-  usuarios: any[] = []; // Array para almacenar los usuarios
-  nuevoUsuario: User = { // Objeto para almacenar los datos del nuevo usuario
+  @ViewChild('myModal') myModal: any; 
+  usuarios: any[] = []; 
+  nuevoUsuario: User = { 
     id: 0,
     estado: true,
     nombre: '',
@@ -29,8 +29,8 @@ export class GUserComponent {
     password: '',
     imagen: ''
   };
-  filtro: string = ''; // Variable para almacenar el texto de búsqueda
-  selectedUser: User | null = null; // Declaración de selectedUser como propiedad de la clase
+  filtro: string = ''; 
+  selectedUser: User | null = null; 
 
   constructor(private usersService: UsersService) {}
 
@@ -41,7 +41,7 @@ export class GUserComponent {
   loadUsers(): void {
     this.usersService.findAllUsers().subscribe({
       next: (data: User[]) => {
-        this.usuarios = data.filter(user => user.estado === true); // Filtrar solo usuarios activos
+        this.usuarios = data.filter(user => user.estado === true); 
       },
       error: (err) => {
         console.error('Error loading users', err);
@@ -52,14 +52,14 @@ export class GUserComponent {
   createUser(): void {
     this.usersService.createUser(this.nuevoUsuario).subscribe({
       next: (user: User) => {
-        // Agregar el nuevo usuario a la lista local solo si la solicitud fue exitosa
+  
         this.usuarios.push(user);
-        this.resetNewUser(); // Limpiar el formulario
-        this.closeModal(); // Cerrar el modal después de agregar
+        this.resetNewUser();
+        this.closeModal(); 
       },
       error: (err) => {
         console.error('Error creating user', err);
-        // Manejar el error apropiadamente
+
       }
     });
   }
@@ -116,35 +116,35 @@ export class GUserComponent {
 
 
   agregarUsuario() {
-    // Abre el modal para agregar un nuevo usuario
+
     this.openModal();
   }
 
   openModal() {
-    this.myModal.nativeElement.classList.add('show'); // Muestra el modal
+    this.myModal.nativeElement.classList.add('show'); 
     this.myModal.nativeElement.style.display = 'block';
   }
 
   closeModal() {
-    this.myModal.nativeElement.classList.remove('show'); // Oculta el modal
+    this.myModal.nativeElement.classList.remove('show'); 
     this.myModal.nativeElement.style.display = 'none';
   }
 
-  // Método para filtrar usuarios según el texto de búsqueda
+
   filtrarUsuarios(): any[] {
     if (!this.filtro.trim()) {
-      return this.usuarios; // Si el filtro está vacío, mostrar todos los usuarios
+      return this.usuarios;
     }
     const filtroMinusculas = this.filtro.toLowerCase();
     return this.usuarios.filter(usuario => {
-      // Filtrar por ID o nombre (puedes agregar más campos si lo deseas)
+
       return usuario.id.toString().includes(filtroMinusculas) || usuario.nombre.toLowerCase().includes(filtroMinusculas);
     });
   }
 
-  // Método para limpiar el filtro de búsqueda
+ 
   limpiarFiltro(): void {
-    this.filtro = ''; // Limpiar el texto de búsqueda
+    this.filtro = ''; 
   }
 
 }

@@ -16,7 +16,7 @@ export class BoletosComponent implements OnInit {
   boletos: Boleto[] = [];
 
   constructor(
-    private router: Router, // Inyecta el servicio Router
+    private router: Router,
     private boletoService: BoletoService
   ) {}
 

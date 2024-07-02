@@ -19,7 +19,7 @@ export class HabitacionesComponent {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      const idHotel = params['idHotel']; // Acceder al parámetro por su nombre
+      const idHotel = params['idHotel']; 
 
       if (idHotel) {
         this.obtenerDatos(idHotel);

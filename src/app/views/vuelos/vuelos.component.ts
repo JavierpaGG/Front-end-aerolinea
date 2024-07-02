@@ -93,7 +93,7 @@ export class VuelosComponent implements OnInit {
   previousWeek(): void {
     const today = this.getStartOfWeek(new Date());
     if (this.currentWeekStart <= today) {
-      return; // No permitir ir hacia atrás si estamos en la semana actual o anterior
+      return; 
     }
     this.currentWeekStart.setDate(this.currentWeekStart.getDate() - 7);
     this.generateDaysOfWeek();
@@ -107,7 +107,7 @@ export class VuelosComponent implements OnInit {
   getStartOfWeek(date: Date): Date {
     const start = new Date(date);
     const day = start.getDay();
-    const diff = start.getDate() - day + (day === 0 ? -6 : 1); // Ajuste si el día es domingo
+    const diff = start.getDate() - day + (day === 0 ? -6 : 1); 
     start.setDate(diff);
     start.setHours(0, 0, 0, 0);
     return start;

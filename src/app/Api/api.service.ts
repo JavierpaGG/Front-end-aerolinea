@@ -10,7 +10,7 @@ export class ApiService {
 
   constructor() {
     this.axiosInstance = axios.create({
-      baseURL: 'http://192.168.1.10:8090/api/', // Replace with your backend API URL
+      baseURL: 'http://192.168.1.10:8090/api/',
       timeout: 1000,
       headers: {'Content-Type': 'application/json'}
     });
