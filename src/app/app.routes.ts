@@ -29,7 +29,7 @@ export const routes: Routes = [
   { path: 'g-vuelos', component: GVuelosComponent },
   { path: 'habitaciones/:idHotel', component: HabitacionesComponent },
   { path: 'vuelos', component: VuelosComponent },
-  { path: 'boletos', component: BoletosComponent },
+  { path: 'boletos/:idVuelo', component: BoletosComponent },
   { path: 'g-boletos', component: GVuelosBoletosComponent },
   { path: 'pagos/:idBoleto', component: PagosComponent },
 ];

@@ -1,37 +1,125 @@
-<app-header></app-header>
-<div class="container mt-4">
-  <div *ngIf="boletos.length > 0; else noBoletos">
-    <div class="row">
-      <div class="col-md-6" *ngFor="let boleto of boletos">
-        <div class="card mb-4">
-          <div class="card-body">
-            <h5 class="card-title">Boleto {{ boleto.numeroBoleto }}</h5>
-            <p class="card-text"><strong>Fecha de Emisión:</strong> {{ boleto.fechaEmision | date }}</p>
-            <p class="card-text"><strong>Estado:</strong> {{ boleto.estado }}</p>
-            <p class="card-text"><strong>Método de Pago:</strong> {{ boleto.metodoPago }}</p>
-            <p class="card-text"><strong>Precio Final:</strong> ${{ boleto.precioFinal }}</p>
-            
-            <h6 class="mt-3">Detalles del Boleto:</h6>
-            <ul class="list-group">
-              <li class="list-group-item" *ngFor="let detalle of boleto.detallesBoleto">
-                <p><strong>Nombre:</strong> {{ detalle.nombreCompleto }}</p>
-                <p><strong>DNI:</strong> {{ detalle.dni }}</p>
-                <p><strong>Asiento:</strong> {{ detalle.asiento }}</p>
-                <p><strong>Categoría de Viaje:</strong> {{ detalle.categoriaViaje }}</p>
-                <p><strong>Es Ida:</strong> {{ detalle.esIda ? 'Sí' : 'No' }}</p>
-                <p><strong>Precio Unitario:</strong> ${{ detalle.precioUnitario }}</p>
-              </li>
-            </ul>
-            
-            <button class="btn btn-primary mt-3" (click)="irAPaginaDePagos(boleto)">Comprar Boleto</button>
+<!-- boletos.component.html -->
+
+<div class="container mt-5">
+  <app-header></app-header>
+
+  <h2 class="mb-4">Comprar Boletos para el Vuelo</h2>
+
+  <form *ngFor="let detalle of detallesBoleto; let i = index" class="mb-4">
+    <h4>Pasajero {{i + 1}}</h4>
+    <div class="form-group mb-3">
+      <label for="nombreCompleto-{{i}}">Nombre Completo</label>
+      <input type="text" class="form-control" id="nombreCompleto-{{i}}" [(ngModel)]="detalle.nombreCompleto" name="nombreCompleto-{{i}}" required>
+    </div>
+    <div class="form-group mb-3">
+      <label for="dni-{{i}}">DNI</label>
+      <input type="text" class="form-control" id="dni-{{i}}" [(ngModel)]="detalle.dni" name="dni-{{i}}" required>
+    </div>
+    <div class="form-group mb-3">
+      <label for="categoriaViaje-{{i}}">Categoría de Viaje</label>
+      <select class="form-control" id="categoriaViaje-{{i}}" [(ngModel)]="detalle.categoriaViaje" name="categoriaViaje-{{i}}">
+        <option value="ECONOMICO">ECONÓMICO</option>
+        <option value="EJECUTIVO">EJECUTIVO</option>
+        <option value="PRIMERA_CLASE">PRIMERA CLASE</option>
+      </select>
+    </div>
+    <div class="form-group mb-3">
+      <label>Seleccionar Asiento</label>
+      <button type="button" class="btn btn-secondary" (click)="toggleSeatSelection()">
+        Seleccionar Asiento
+      </button>
+    </div>
+
+    <div *ngIf="showSeatSelection" class="seat-selection mb-4">
+      <h4>Selecciona tu asiento</h4>
+      <div class="seat-map">
+        <div class="section">
+          <div *ngFor="let seat of seats.slice(0, 4)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
+            <i class="fa fa-couch"></i> {{ seat }}
           </div>
         </div>
+        <div class="section">
+          <div *ngFor="let seat of seats.slice(4, 8)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
+            <i class="fa fa-couch"></i> {{ seat }}
+          </div>
+        </div>
+        <div class="section">
+          <div *ngFor="let seat of seats.slice(8, 12)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
+            <i class="fa fa-couch"></i> {{ seat }}
+          </div>
+        </div>
+        <div class="section">
+          <div *ngFor="let seat of seats.slice(12, 16)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
+            <i class="fa fa-couch"></i> {{ seat }}
+          </div>
+        </div>
+        <div class="section">
+          <div *ngFor="let seat of seats.slice(16, 20)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
+            <i class="fa fa-couch"></i> {{ seat }}
+          </div>
+        </div>
+        <div class="section">
+          <div *ngFor="let seat of seats.slice(20, 24)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
+            <i class="fa fa-couch"></i> {{ seat }}
+          </div>
+        </div>
+        <div class="section">
+          <div *ngFor="let seat of seats.slice(24, 28)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
+            <i class="fa fa-couch"></i> {{ seat }}
+          </div>
+        </div>
+        <div class="section">
+          <div *ngFor="let seat of seats.slice(28, 32)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
+            <i class="fa fa-couch"></i> {{ seat }}
+          </div>
+        </div>
+        <div class="section">
+          <div *ngFor="let seat of seats.slice(32, 36)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
+            <i class="fa fa-couch"></i> {{ seat }}
+          </div>
+        </div>
+        <div class="section">
+          <div *ngFor="let seat of seats.slice(36, 40)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
+            <i class="fa fa-couch"></i> {{ seat }}
+          </div>
+        </div>
+        <div class="section">
+          <div *ngFor="let seat of seats.slice(40, 44)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
+            <i class="fa fa-couch"></i> {{ seat }}
+          </div>
+        </div>
+        <div class="section">
+          <div *ngFor="let seat of seats.slice(44, 48)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
+            <i class="fa fa-couch"></i> {{ seat }}
+          </div>
+        </div>
+        <div class="section">
+          <div *ngFor="let seat of seats.slice(48, 52)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
+            <i class="fa fa-couch"></i> {{ seat }}
+          </div>
+        </div>
+        <div class="section">
+          <div *ngFor="let seat of seats.slice(52, 56)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
+            <i class="fa fa-couch"></i> {{ seat }}
+          </div>
+        </div>
+        <div class="section">
+          <div *ngFor="let seat of seats.slice(56, 60)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
+            <i class="fa fa-couch"></i> {{ seat }}
+          </div>
+        </div>
+
       </div>
     </div>
+  </form>
+
+  <div class="form-group mb-3">
+    <button type="button" class="btn btn-primary" (click)="addDetalleBoleto()">Agregar otra persona</button>
   </div>
 
-  <ng-template #noBoletos>
-    <p class="text-center mt-5">No hay boletos disponibles.</p>
-  </ng-template>
+  <div class="form-group mb-3">
+    <button type="button" class="btn btn-success" (click)="purchaseBoleto()">Comprar Boleto</button>
+  </div>
+
+  <app-footer></app-footer>
 </div>
-<app-footer/>

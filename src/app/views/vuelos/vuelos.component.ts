@@ -119,8 +119,9 @@ export class VuelosComponent implements OnInit {
   }
 
   navigateToBoletos(idVuelo: number): void {
-    this.router.navigate(['/boletos']);
-  }
+    this.router.navigate(['/boletos', idVuelo]);
+  }  
+  
   
 
   getNombreAeropuerto(id: number): string {
