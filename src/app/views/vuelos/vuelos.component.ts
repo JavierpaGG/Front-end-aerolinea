@@ -9,7 +9,7 @@ import { VueloService } from '../../controllers/vuelo.service';
 @Component({
   selector: 'app-vuelos',
   standalone: true,
-  imports: [CommonModule,HeaderComponent,FooterComponent,],
+  imports: [CommonModule,HeaderComponent,FooterComponent],
   templateUrl: './vuelos.component.html',
   styleUrl: './vuelos.component.css'
 })
@@ -121,7 +121,6 @@ export class VuelosComponent implements OnInit {
   navigateToBoletos(idVuelo: number): void {
     this.router.navigate(['/boletos', idVuelo]);
   }  
-  
   
 
   getNombreAeropuerto(id: number): string {

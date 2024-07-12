@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { BoletoService } from '../../controllers/boleto.service';
 import { Boleto, DetalleBoleto } from '../../models/boleto.model';
 import { HeaderComponent } from '../header/header.component';
@@ -21,14 +21,14 @@ export class BoletosComponent implements OnInit {
   showSeatSelection: boolean = false;
   esIdaYVuelta: boolean = true;
   seatRows: any[] = []; // Arreglo de filas de asientos
-
+  detalleBoleto: DetalleBoleto[] = [];
   // Definir los asientos del avión
   seats: string[] = Array.from({ length: 60 }, (_, i) => `A${i + 1}`);
 
   constructor(
     private route: ActivatedRoute,
-    private boletoService: BoletoService
-    
+    private boletoService: BoletoService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -62,27 +62,38 @@ export class BoletosComponent implements OnInit {
     });
   }
 
+  showSeatButton: boolean = true;
+
   toggleSeatSelection(): void {
     this.showSeatSelection = !this.showSeatSelection;
+    this.showSeatButton = false; // Ocultar el botón después de hacer clic
   }
-
   isSeatAvailable(seat: string): boolean {
     return !this.selectedSeats.has(seat);
   }
 
   toggleSeat(seat: string) {
-    const currentDetalle = this.detallesBoleto[this.detallesBoleto.length - 1]; // Último detalle de boleto agregado
-  
-    // Verificar si el asiento seleccionado pertenece a la categoría actual del detalle de boleto
-    const seatIndex = this.seats.indexOf(seat);
-    if (currentDetalle && this.isValidCategory(seatIndex, currentDetalle.categoriaViaje)) {
-      if (this.selectedSeats.has(seat)) {
-        this.selectedSeats.delete(seat);
-      } else {
+  const currentDetalle = this.detallesBoleto[this.detallesBoleto.length - 1]; // Último detalle de boleto agregado
+
+  // Verificar si el asiento seleccionado pertenece a la categoría actual del detalle de boleto
+  const seatIndex = this.seats.indexOf(seat);
+  if (currentDetalle && this.isValidCategory(seatIndex, currentDetalle.categoriaViaje)) {
+    // Eliminar el asiento del conjunto selectedSeats antes de verificar el número de asientos seleccionados
+    if (this.selectedSeats.has(seat)) {
+      this.selectedSeats.delete(seat);
+      currentDetalle.asientoSeleccionado = null;
+    } else {
+      if (this.selectedSeats.size < this.detallesBoleto.length) {
+        // Si el número de asientos seleccionados es menor que el número de pasajeros, permitir selección
         this.selectedSeats.add(seat);
+        currentDetalle.asientoSeleccionado = seat;
+      } else {
+        // Si el número de asientos seleccionados es igual o mayor que el número de pasajeros, no permitir selección
+        alert('No puedes seleccionar más asientos que pasajeros');
       }
     }
   }
+}
   isValidCategory(seatIndex: number, categoria: string): boolean {
     switch (categoria) {
       case 'PRIMERA_CLASE':
@@ -112,6 +123,7 @@ export class BoletosComponent implements OnInit {
       nombreCompleto: '',
       dni: '',
       asiento: '',
+      asientoSeleccionado: null, // Agregamos esta propiedad
       categoriaViaje: 'ECONOMICO',
       esIda: this.esIdaYVuelta,
       precioUnitario: 0
@@ -148,8 +160,9 @@ export class BoletosComponent implements OnInit {
     this.boletoService.createBoleto(newBoleto).subscribe({
       next: (data) => {
         console.log('Boleto creado:', data);
-        alert('Boleto comprado con éxito.');
+        alert('Complete los datos de pago');
         this.resetForm();
+        this.navigateToPagos(data.id);
       },
       error: (err) => {
         console.error('Error al comprar boleto', err);
@@ -162,5 +175,9 @@ export class BoletosComponent implements OnInit {
     this.detallesBoleto = [];
     this.showSeatSelection = false;
     this.addDetalleBoleto();
+  }
+
+  navigateToPagos(idBoleto: number): void {
+    this.router.navigate(['/pagos', idBoleto]);
   }
 }

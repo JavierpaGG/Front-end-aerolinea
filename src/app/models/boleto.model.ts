@@ -19,5 +19,5 @@ export interface Boleto {
     categoriaViaje: string; // ECONOMICO, EJECUTIVO, PRIMERA_CLASE
     esIda: boolean;
     precioUnitario: number;
+    asientoSeleccionado: string | null;
   }
-  

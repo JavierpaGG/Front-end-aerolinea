@@ -1,5 +1,4 @@
 <!-- boletos.component.html -->
-
 <div class="container mt-5">
   <app-header></app-header>
 
@@ -25,9 +24,9 @@
     </div>
     <div class="form-group mb-3">
       <label>Seleccionar Asiento</label>
-      <button type="button" class="btn btn-secondary" (click)="toggleSeatSelection()">
-        Seleccionar Asiento
-      </button>
+      <button type="button" class="btn btn-secondary" (click)="toggleSeatSelection()" *ngIf="showSeatButton">
+  Seleccionar Asiento
+</button>
     </div>
 
     <div *ngIf="showSeatSelection" class="seat-selection mb-4">

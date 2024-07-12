@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Stripe, StripeElementsOptions, StripeCardElement, StripeCardElementOptions } from '@stripe/stripe-js';
 import { environment } from '../../../../environments/enviroment';
-import { StripeService } from '../../stripe/stripe.component';
+import { StripeService } from '../../controllers/stripe.service';
 @Component({
   selector: 'app-pagos',
   templateUrl: './pagos.component.html',
