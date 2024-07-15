@@ -10,5 +10,15 @@ import { RouterModule } from '@angular/router';
   styleUrl: './g-header.component.css'
 })
 export class GHeaderComponent {
+  isLoggedIn: boolean = false; 
 
+  constructor(private router: Router) {
+    this.isLoggedIn = !!localStorage.getItem('access_token');
+  }
+
+  logout(): void {
+    localStorage.removeItem('access_token');
+    this.isLoggedIn = false;
+    this.router.navigate(['/login']);
+  }
 }

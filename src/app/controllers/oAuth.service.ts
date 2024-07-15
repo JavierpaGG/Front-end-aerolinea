@@ -17,14 +17,17 @@ export class OAuthService {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Authorization': 'Basic ' + btoa(`${this.clientId}:${this.clientSecret}`)
     });
-
+  
     const body = new HttpParams()
       .set('grant_type', 'password')
       .set('username', username)
       .set('password', password);
-
+  
+    console.log('Sending token request with body:', body.toString());
+  
     return this.http.post<any>(this.authUrl, body.toString(), { headers });
   }
+  
 
   loginUser(token: any) {
     localStorage.setItem('access_token', token);

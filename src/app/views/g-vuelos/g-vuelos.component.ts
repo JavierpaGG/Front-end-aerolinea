@@ -1,3 +1,4 @@
+
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { GHeaderComponent } from '../g-header/g-header.component';
 import { Vuelo } from '../../models/vuelo.model';
@@ -15,6 +16,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./g-vuelos.component.css']
 })
 export class GVuelosComponent {
+
+
   vuelo: Vuelo[] = [];
   vueloSeleccionado: Vuelo | null = null;
   nuevoVuelo: Vuelo = {

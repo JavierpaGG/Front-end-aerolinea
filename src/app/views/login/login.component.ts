@@ -12,6 +12,7 @@ import { OAuthService } from '../../controllers/oAuth.service';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  isLoggedIn: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -22,38 +23,44 @@ export class LoginComponent {
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
+
+
+    this.isLoggedIn = !!localStorage.getItem('access_token');
   }
 
   onSubmit(): void {
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.value;
-      this.oauthService.getToken(username, password).subscribe(
-        (response) => {
-          console.log('Token response:', response);
-          localStorage.setItem('access_token', response.access_token);
-          localStorage.setItem('dni', response.dni);
 
-          // Decodificar el token para obtener los roles del usuario
-          const decodedToken = this.decodeToken(response.access_token);
-          const roles = decodedToken.authorities;
+      if (this.isLoggedIn) {
 
-          if (roles.includes('ROLE_ADMIN')) {
-            this.router.navigate(['/g-admin']);
-          } else if (roles.includes('ROLE_USER')) {
-            this.router.navigate(['/main']);
+        localStorage.removeItem('access_token');
+        this.isLoggedIn = false;
+        this.router.navigate(['/login']); 
+      } else {
+
+        this.oauthService.getToken(username, password).subscribe(
+          (response) => {
+            console.log('Token response:', response);
+            localStorage.setItem('access_token', response.access_token);
+            localStorage.setItem('dni', response.dni);
+
+
+            const decodedToken = this.oauthService.decodeToken(response.access_token);
+            const roles = decodedToken.authorities;
+            console.log('User roles:', roles);
+
+            if (roles.includes('ROLE_ADMIN')) {
+              this.router.navigate(['/g-admin']);
+            } else if (roles.includes('ROLE_USER')) {
+              this.router.navigate(['/main']);
+            }
+          },
+          (error) => {
+            console.error('Error obtaining token:', error);
           }
-        },
-        (error) => {
-          console.error('Error obtaining token:', error);
-          // Maneja el error aquí, por ejemplo, mostrar un mensaje de error al usuario
-        }
-      );
+        );
+      }
     }
-  }
-
-  private decodeToken(token: string): any {
-    const payload = token.split('.')[1];
-    const decodedPayload = atob(payload);
-    return JSON.parse(decodedPayload);
   }
 }

@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import {User, Role} from './../../models/user.model';
 import { UsersService } from '../../controllers/users.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import * as bcrypt from 'bcryptjs';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -16,7 +17,11 @@ export class RegisterComponent {
   userForm: FormGroup;
   confirmPassword: string = '';
 
-  constructor(private formBuilder: FormBuilder, private userService: UsersService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private userService: UsersService,
+    private router: Router
+  ) {
     this.userForm = this.formBuilder.group({
       nombre: ['', Validators.required],
       direccion: ['', Validators.required],
@@ -32,10 +37,9 @@ export class RegisterComponent {
   onSubmit(): void {
     this.confirmPassword = this.userForm.value.confirmPassword;
     if (this.userForm.valid && this.userForm.value.password === this.confirmPassword) {
-      // Encriptar la contraseña usando bcryptjs
       const hashedPassword = bcrypt.hashSync(this.userForm.value.password, 10);
 
-      const newUser: User = {
+      const newUser = {
         id: this.userForm.value.id,
         estado: true,
         roles: [{ id: 2, nombre: null }],
@@ -44,22 +48,37 @@ export class RegisterComponent {
         telefono: this.userForm.value.telefono,
         username: this.userForm.value.username,
         email: this.userForm.value.email,
-        password: hashedPassword, // Usar la contraseña encriptada
+        password: hashedPassword,
         imagen: ''
       };
 
       this.userService.createUser(newUser).subscribe(
         (response) => {
           console.log('Usuario creado:', response);
-          // Aquí podrías redirigir o mostrar un mensaje de éxito al usuario
+          Swal.fire({
+            icon: 'success',
+            title: 'Registro Exitoso',
+            text: '¡Tu cuenta ha sido creada exitosamente!',
+            confirmButtonText: 'Iniciar Sesión'
+          }).then(() => {
+            this.router.navigate(['/login']); // Redirigir al usuario al inicio de sesión
+          });
         },
         (error) => {
           console.error('Error al crear usuario:', error);
-          // Aquí podrías manejar errores, mostrar un mensaje al usuario, etc.
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Hubo un problema al crear tu cuenta. Por favor, inténtalo nuevamente más tarde.'
+          });
         }
       );
     } else {
-      alert('Por favor, verifica que los campos estén correctamente llenados y que las contraseñas coincidan.');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Campos Incompletos',
+        text: 'Por favor, verifica que todos los campos estén llenados correctamente.'
+      });
     }
   }
 }
