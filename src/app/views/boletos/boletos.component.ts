@@ -6,6 +6,7 @@ import { Boleto, DetalleBoleto } from '../../models/boleto.model';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-boletos',
   standalone: true,
@@ -136,7 +137,11 @@ export class BoletosComponent implements OnInit {
 
   purchaseBoleto() {
     if (this.selectedSeats.size !== this.detallesBoleto.length) {
-      alert('Selecciona asientos para todos los pasajeros antes de continuar.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Selecciona asientos para todos los pasajeros antes de continuar.'
+      });
       return;
     }
 
@@ -160,7 +165,6 @@ export class BoletosComponent implements OnInit {
     this.boletoService.createBoleto(newBoleto).subscribe({
       next: (data) => {
         console.log('Boleto creado:', data);
-        alert('Complete los datos de pago');
         this.resetForm();
         this.navigateToPagos(data.id);
       },

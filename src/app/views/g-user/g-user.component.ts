@@ -3,8 +3,7 @@ import { GHeaderComponent } from '../g-header/g-header.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UsersService } from '../../controllers/users.service';
-import { delay, switchMap } from 'rxjs';
-import { User } from '../../models/user.model';
+import { User, Role } from '../../models/user.model';
 
 
 @Component({
@@ -27,8 +26,15 @@ export class GUserComponent {
     telefono: '',
     email: '',
     password: '',
-    imagen: ''
+    imagen: '',
+    username: '',
+    roles: [] as Role[]
   };
+
+
+
+
+
   filtro: string = ''; 
   selectedUser: User | null = null; 
 
@@ -37,17 +43,26 @@ export class GUserComponent {
   ngOnInit() {
     this.loadUsers();
   }
-
+  
   loadUsers(): void {
     this.usersService.findAllUsers().subscribe({
-      next: (data: User[]) => {
-        this.usuarios = data.filter(user => user.estado === true); 
+      next: (data: any) => {
+        console.log(data); // Verifica la estructura de la respuesta
+        if (data._embedded && Array.isArray(data._embedded.usuarios)) {
+          this.usuarios = data._embedded.usuarios.filter((user: User) => user.estado === true);
+        } else {
+          console.error('La respuesta no contiene un arreglo de usuarios', data);
+        }
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Error loading users', err);
       }
     });
   }
+  
+  
+  
+  
 
   createUser(): void {
     this.usersService.createUser(this.nuevoUsuario).subscribe({
@@ -75,20 +90,6 @@ export class GUserComponent {
     });
   }
 
-  deleteUser(id: number): void {
-    this.usersService.deleteById(id).subscribe({
-      next: () => {
-        this.usuarios = this.usuarios.filter(user => user.id !== id);
-        if (this.selectedUser && this.selectedUser.id === id) {
-          this.selectedUser = null;
-        }
-      },
-      error: (err) => {
-        console.error('Error deleting user', err);
-      }
-    });
-  }
-
   resetNewUser(): void {
     this.nuevoUsuario = {
       id: 0,
@@ -98,7 +99,9 @@ export class GUserComponent {
       telefono: '',
       email: '',
       password: '',
-      imagen: ''
+      imagen: '',
+      username: '',
+      roles: [] as Role[]
     };
   }
 

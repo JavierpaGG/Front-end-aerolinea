@@ -1,14 +1,60 @@
 <div class="container">
-  <h1>Gestión de Boletos para Vuelo</h1>
-  <table class="table">
+  <h1>Información de Boletos</h1>
+  
+  <!-- Sección de Información General -->
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Total Boletos</h5>
+          <p class="card-text">{{ boletos.length }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Total Ingresos</h5>
+          <p class="card-text">{{ totalIngresos | currency }}</p>
+        </div>
+      </div>
+    </div>
+    <!-- Puedes añadir más tarjetas aquí -->
+  </div>
+
+  <!-- Sección de Gráficos -->
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <ngx-charts-bar-vertical
+        [results]="boletosPorEstado"
+        [xAxis]="true"
+        [yAxis]="true"
+        [legend]="true"
+        [showDataLabel]="true"
+        [scheme]="colorScheme"
+        [gradient]="true">
+      </ngx-charts-bar-vertical>
+    </div>
+    <div class="col-md-6">
+      <ngx-charts-pie-chart
+        [results]="boletosPorCategoria"
+        [legend]="true"
+        [explodeSlices]="true"
+        [labels]="true"
+        [doughnut]="false"
+        [gradient]="true">
+      </ngx-charts-pie-chart>
+    </div>
+  </div>
+
+  <!-- Sección de Lista de Boletos -->
+  <table class="table mt-4">
     <thead>
       <tr>
         <th scope="col">Número de Boleto</th>
         <th scope="col">Fecha</th>
         <th scope="col">Precio</th>
         <th scope="col">Estado</th>
-        <th scope="col">Acciones</th>
-
       </tr>
     </thead>
     <tbody>
@@ -16,17 +62,8 @@
         <tr *ngFor="let boleto of boletos">
           <td>{{ boleto.numeroBoleto }}</td>
           <td>{{ boleto.fechaEmision | date }}</td>
-          <td>{{ boleto.precioFinal }}</td>
+          <td>S/. {{ boleto.precioFinal}} </td>
           <td>{{ boleto.estado }}</td>
-          <td>{{ boleto.fechaEmision | date }}</td>
-          <td>
-            <button class="btn btn-sm btn-warning">
-              <i class="fas fa-edit"></i> Editar
-            </button>
-            <button class="btn btn-sm btn-danger">
-              <i class="fas fa-trash"></i> Eliminar
-            </button>
-          </td>
         </tr>
       </ng-container>
       <ng-template #noBoletos>

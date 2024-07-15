@@ -1,17 +1,46 @@
-<div class="container mt-4">
+<div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-6">
       <div class="card">
         <div class="card-body">
-          <h2 class="card-title mb-4">Detalles de Pago</h2>
+          <h2 class="card-title text-center mb-4">Detalles de Pago <i class="fas fa-money-check-alt"></i></h2>
 
-          <form (submit)="onSubmit()">
+          <div *ngIf="boleto" class="resumen-boleto">
+            <div>
+              <p>Número de Boleto: {{ boleto.numeroBoleto }}</p>
+              <p>Fecha de Emisión: {{ boleto.fechaEmision | date }}</p>
+              <p>Precio Final: {{ boleto.precioFinal | currency : "PEN" }}</p>
+            </div>
+
+            <h5 (click)="toggleDetalle()" style="cursor: pointer;">Detalles del Boleto <i class="fas fa-chevron-down" [ngClass]="{'rotate-icon': mostrarDetalle}"></i></h5>
+            <div id="detalleBoleto" [ngClass]="{'show': mostrarDetalle}" class="collapse">
+              <div *ngFor="let detalle of boleto.detallesBoleto" class="detalle-boleto">
+                <p>Nombre Completo: {{ detalle.nombreCompleto }}</p>
+                <p>DNI: {{ detalle.dni }}</p>
+                <p>Asiento: {{ detalle.asiento }}</p>
+                <p>Categoría de Viaje: {{ detalle.categoriaViaje }}</p>
+                <p>Es Ida: {{ detalle.esIda ? "Sí" : "No" }}</p>
+                <p>Precio Unitario: {{ detalle.precioUnitario | currency : "PEN" }}</p>
+                <!-- Agregar más detalles según sea necesario -->
+              </div>
+
+              <!-- Menú desplegable adicional -->
+              <h5 (click)="toggleDetalleAdicional()" style="cursor: pointer;">Detalles Adicionales <i class="fas fa-chevron-down" [ngClass]="{'rotate-icon': mostrarDetalleAdicional}"></i></h5>
+              <div id="detalleAdicional" [ngClass]="{'show': mostrarDetalleAdicional}" class="collapse">
+                <p>Aquí puedes agregar detalles adicionales si es necesario.</p>
+              </div>
+            </div>
+          </div>
+
+          <form (submit)="onSubmit($event)">
             <div class="form-group">
-              <label for="card-element">Ingresa los detalles de tu tarjeta:</label>
+              <label for="card-element">Ingresa los detalles de tu tarjeta <i class="far fa-credit-card"></i>:</label>
               <div #cardElement id="card-element" class="card-element"></div>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-block mt-4">Pagar</button>
+            <button type="submit" class="btn btn-primary btn-block">
+              Pagar <i class="fas fa-check-circle"></i>
+            </button>
           </form>
         </div>
       </div>

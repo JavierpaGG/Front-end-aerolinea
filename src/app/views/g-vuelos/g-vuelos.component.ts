@@ -26,11 +26,11 @@ export class GVuelosComponent {
     horaSalida: '',
     horaLlegada: '',
     duracion: 0,
-    asientosDisponibles: 0,
+    asientosDisponibles: 60,
     estado: 'ACTIVO',
     precio: 0,
   };
-
+  searchTerm: string = '';
   aeropuertos: { id: number, nombre: string }[] = [
     { id: 1, nombre: "LIM - LIMA" },
     { id: 2, nombre: "AQP - AREQUIPA" },
@@ -68,6 +68,16 @@ export class GVuelosComponent {
       error: (err) => {
         console.error('Error al cargar vuelos', err);
       }
+    });
+  }
+  get filteredVuelos(): Vuelo[] {
+    return this.vuelo.filter(v => {
+      const origenNombre = this.getAeropuertoNombre(v.aeropuertoOrigenId).toLowerCase();
+      const llegadaNombre = this.getAeropuertoNombre(v.aeropuertoLlegadaId).toLowerCase();
+      const searchTerm = this.searchTerm.toLowerCase();
+      return v.numeroVuelo.toLowerCase().includes(searchTerm) ||
+             origenNombre.includes(searchTerm) ||
+             llegadaNombre.includes(searchTerm);
     });
   }
 

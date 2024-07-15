@@ -1,31 +1,93 @@
+.container {
+  margin-top: 50px;
+}
+
 .card {
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .card-title {
-    text-align: center;
-  }
-  
-  .card-element {
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-  }
-  
-  .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-  }
-  
-  .btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
-  }
-  
-  .btn-primary:focus {
-    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
-  }
-  
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-element {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.btn-primary:focus {
+  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.resumen-boleto {
+  background-color: #f8f9fa; /* Color de fondo */
+  border: 1px solid #dee2e6; /* Borde */
+  border-radius: 10px; /* Esquinas redondeadas */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
+  padding: 20px; /* Espaciado interior */
+  margin-top: 20px; /* Margen superior */
+}
+
+.resumen-boleto h4 {
+  margin-top: 0;
+  font-size: 1.8rem; /* Tamaño del título enfatizado */
+  color: #333;
+}
+
+.resumen-boleto p {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #555;
+}
+.detalle-boleto {
+  background: linear-gradient(to right, #ffffff, #f8f9fa); /* Degradado de fondo */
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+}
+.detalle-boleto h5 {
+  font-size: 1.5rem; /* Tamaño del título del detalle */
+  color: #333;
+  cursor: pointer;
+}
+
+.detalle-item {
+  background-color: #fff; /* Color de fondo */
+  border: 1px solid #ccc; /* Borde */
+  border-radius: 10px; /* Esquinas redondeadas */
+}
+.rotate-icon {
+  transition: transform 0.3s ease;
+}
+
+.rotate-icon.rotate-down {
+  transform: rotate(180deg);
+}

@@ -1,11 +1,8 @@
-<!-- boletos.component.html -->
+<app-header></app-header>
 <div class="container mt-5">
-  <app-header></app-header>
-
-  <h2 class="mb-4">Comprar Boletos para el Vuelo</h2>
 
   <form *ngFor="let detalle of detallesBoleto; let i = index" class="mb-4">
-    <h4>Pasajero {{i + 1}}</h4>
+    <h4>Pasajero {{i +1}}</h4>
     <div class="form-group mb-3">
       <label for="nombreCompleto-{{i}}">Nombre Completo</label>
       <input type="text" class="form-control" id="nombreCompleto-{{i}}" [(ngModel)]="detalle.nombreCompleto" name="nombreCompleto-{{i}}" required>
@@ -23,102 +20,114 @@
       </select>
     </div>
     <div class="form-group mb-3">
-      <label>Seleccionar Asiento</label>
-      <button type="button" class="btn btn-secondary" (click)="toggleSeatSelection()" *ngIf="showSeatButton">
+      <button type="button" class="btn btn-secondary, btn-gradient-seleccionar " (click)="toggleSeatSelection()" *ngIf="showSeatButton">
   Seleccionar Asiento
 </button>
+
+
     </div>
 
     <div *ngIf="showSeatSelection" class="seat-selection mb-4">
       <h4>Selecciona tu asiento</h4>
+
+      <!-- Asientos de Primera Clase -->
       <div class="seat-map">
-        <div class="section">
-          <div *ngFor="let seat of seats.slice(0, 4)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
-            <i class="fa fa-couch"></i> {{ seat }}
+        <div> <h5>Asientos de Primera Clase</h5>
+          <div class="section">
+            <div *ngFor="let seat of seats.slice(0, 4)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
+              <i class="fa fa-couch"></i> {{ seat }}
+            </div>
           </div>
-        </div>
-        <div class="section">
-          <div *ngFor="let seat of seats.slice(4, 8)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
-            <i class="fa fa-couch"></i> {{ seat }}
+          <div class="section">
+            <div *ngFor="let seat of seats.slice(4, 8)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
+              <i class="fa fa-couch"></i> {{ seat }}
+            </div>
           </div>
-        </div>
-        <div class="section">
-          <div *ngFor="let seat of seats.slice(8, 12)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
-            <i class="fa fa-couch"></i> {{ seat }}
+          <div class="section">
+            <div *ngFor="let seat of seats.slice(8, 12)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
+              <i class="fa fa-couch"></i> {{ seat }}
+            </div>
           </div>
-        </div>
-        <div class="section">
-          <div *ngFor="let seat of seats.slice(12, 16)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
-            <i class="fa fa-couch"></i> {{ seat }}
+          <div class="section">
+            <div *ngFor="let seat of seats.slice(12, 16)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
+              <i class="fa fa-couch"></i> {{ seat }}
+            </div>
           </div>
-        </div>
-        <div class="section">
-          <div *ngFor="let seat of seats.slice(16, 20)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
-            <i class="fa fa-couch"></i> {{ seat }}
-          </div>
-        </div>
-        <div class="section">
-          <div *ngFor="let seat of seats.slice(20, 24)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
-            <i class="fa fa-couch"></i> {{ seat }}
-          </div>
-        </div>
-        <div class="section">
-          <div *ngFor="let seat of seats.slice(24, 28)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
-            <i class="fa fa-couch"></i> {{ seat }}
-          </div>
-        </div>
-        <div class="section">
-          <div *ngFor="let seat of seats.slice(28, 32)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
-            <i class="fa fa-couch"></i> {{ seat }}
-          </div>
-        </div>
-        <div class="section">
-          <div *ngFor="let seat of seats.slice(32, 36)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
-            <i class="fa fa-couch"></i> {{ seat }}
-          </div>
-        </div>
-        <div class="section">
-          <div *ngFor="let seat of seats.slice(36, 40)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
-            <i class="fa fa-couch"></i> {{ seat }}
-          </div>
-        </div>
-        <div class="section">
-          <div *ngFor="let seat of seats.slice(40, 44)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
-            <i class="fa fa-couch"></i> {{ seat }}
-          </div>
-        </div>
-        <div class="section">
-          <div *ngFor="let seat of seats.slice(44, 48)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
-            <i class="fa fa-couch"></i> {{ seat }}
-          </div>
-        </div>
-        <div class="section">
-          <div *ngFor="let seat of seats.slice(48, 52)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
-            <i class="fa fa-couch"></i> {{ seat }}
-          </div>
-        </div>
-        <div class="section">
-          <div *ngFor="let seat of seats.slice(52, 56)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
-            <i class="fa fa-couch"></i> {{ seat }}
-          </div>
-        </div>
-        <div class="section">
-          <div *ngFor="let seat of seats.slice(56, 60)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
-            <i class="fa fa-couch"></i> {{ seat }}
+          <div class="section">
+            <div *ngFor="let seat of seats.slice(16, 20)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
+              <i class="fa fa-couch"></i> {{ seat }}
+            </div>
           </div>
         </div>
 
+        <!-- Asientos de Ejecutivo -->
+        <div> <h5>Asientos de Ejecutivos</h5>
+          <div class="section1">
+            <div *ngFor="let seat of seats.slice(20, 24)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
+              <i class="fa fa-couch"></i> {{ seat }}
+            </div>
+          </div>
+          <div class="section1">
+            <div *ngFor="let seat of seats.slice(24, 28)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
+              <i class="fa fa-couch"></i> {{ seat }}
+            </div>
+          </div>
+          <div class="section1">
+            <div *ngFor="let seat of seats.slice(28, 32)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
+              <i class="fa fa-couch"></i> {{ seat }}
+            </div>
+          </div>
+          <div class="section1">
+            <div *ngFor="let seat of seats.slice(32, 36)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
+              <i class="fa fa-couch"></i> {{ seat }}
+            </div>
+          </div>
+          <div class="section1">
+            <div *ngFor="let seat of seats.slice(36, 40)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
+              <i class="fa fa-couch"></i> {{ seat }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Asientos Económicos -->
+        <div> <h5>Asientos Económicos</h5>
+          <div class="section2">
+            <div *ngFor="let seat of seats.slice(40, 44)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
+              <i class="fa fa-couch"></i> {{ seat }}
+            </div>
+          </div>
+          <div class="section2">
+            <div *ngFor="let seat of seats.slice(44, 48)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
+              <i class="fa fa-couch"></i> {{ seat }}
+            </div>
+          </div>
+          <div class="section2">
+            <div *ngFor="let seat of seats.slice(48, 52)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
+              <i class="fa fa-couch"></i> {{ seat }}
+            </div>
+          </div>
+          <div class="section2">
+            <div *ngFor="let seat of seats.slice(52, 56)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
+              <i class="fa fa-couch"></i> {{ seat }}
+            </div>
+          </div>
+          <div class="section2">
+            <div *ngFor="let seat of seats.slice(56, 60)" class="seat" [class.selected]="isSelected(seat)" [class.available]="isSeatAvailable(seat)" (click)="toggleSeat(seat)">
+              <i class="fa fa-couch"></i> {{ seat }}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </form>
 
   <div class="form-group mb-3">
-    <button type="button" class="btn btn-primary" (click)="addDetalleBoleto()">Agregar otra persona</button>
+    <button type="button" class="btn btn-primary, btn-gradient-agregar " (click)="addDetalleBoleto()">Agregar otra persona</button>
   </div>
 
   <div class="form-group mb-3">
-    <button type="button" class="btn btn-success" (click)="purchaseBoleto()">Comprar Boleto</button>
+    <button type="button" class="btn btn-success, btn-gradient-comprar " (click)="purchaseBoleto()">Comprar Boleto</button>
   </div>
 
-  <app-footer></app-footer>
 </div>
+<app-footer></app-footer>

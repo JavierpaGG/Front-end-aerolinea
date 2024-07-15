@@ -1,5 +1,5 @@
 .btn-gradient {
-  background: linear-gradient(to right, #62b2f3, #62b2f3);
+  background: linear-gradient(to right, #5e6eff, #5e6eff);
   border: none;
   color: white;
   padding: 10px 20px;
@@ -10,7 +10,7 @@
 }
 
 .btn-gradient:hover {
-  background: linear-gradient(to right, #1D4AA3, #1D4AA3);
+  background: linear-gradient(to right, #5e6eff, rgb(118, 82, 207));
   font-weight: bold;
 }
 
@@ -25,21 +25,21 @@ html, body {
 }
 
 .navigation-bar {
-  padding: 10px; /* Espaciado interno */
-  display: flex; /* Hace que los elementos dentro de la barra se comporten como flex */
-  justify-content: space-between; /* Distribuye los elementos horizontalmente con espacio entre ellos */
+  padding: 10px; 
+  display: flex; 
+  justify-content: space-between; 
 }
 
 .btn-group {
-  display: flex; /* Hace que los botones dentro del grupo se comporten como flex */
+  display: flex; 
 }
 
 .btn-group button {
-  margin-right: 0; /* Elimina el margen entre los botones */
+  margin-right: 0; 
 }
 
 .btn-group button:last-child {
-  margin-right: 0; /* Asegura que no haya margen después del último botón */
+  margin-right: 0; 
 }
 
 .vuelos-list {

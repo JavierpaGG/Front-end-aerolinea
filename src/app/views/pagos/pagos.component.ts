@@ -1,9 +1,17 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { Stripe, StripeElementsOptions, StripeCardElement, StripeCardElementOptions } from '@stripe/stripe-js';
+import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
+import { Stripe, StripeCardElement } from '@stripe/stripe-js';
 import { environment } from '../../../../environments/enviroment';
 import { StripeService } from '../../controllers/stripe.service';
+import { ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
+import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { Boleto, DetalleBoleto } from '../../models/boleto.model';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-pagos',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './pagos.component.html',
   styleUrls: ['./pagos.component.css']
 })
@@ -11,8 +19,23 @@ export class PagosComponent {
   stripe: Stripe | null = null;
   cardElement: StripeCardElement | null = null;
   @ViewChild('cardElement') cardElementRef!: ElementRef;
+  boletoId: number;
+  boleto: Boleto | null = null;
+  mostrarDetalle: boolean = false;
+  mostrarDetalleAdicional: boolean = false;
 
-  constructor(private stripeService: StripeService) {
+  constructor(
+    private stripeService: StripeService,
+    private http: HttpClient,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+    this.boletoId = +this.route.snapshot.paramMap.get('idBoleto')!;
+  }
+  
+
+  ngOnInit() {
+    this.getBoletoDetails(this.boletoId);
     this.setupStripe();
   }
 
@@ -31,34 +54,79 @@ export class PagosComponent {
       this.cardElement = elements.create('card') as StripeCardElement;
       this.cardElement.mount(this.cardElementRef.nativeElement);
     } catch (error) {
-      console.error('Error en la configuración de Stripe:', error);
     }
   }
 
-  async onSubmit() {
+  async onSubmit(event: Event) {
+    event.preventDefault();
+
     if (!this.stripe || !this.cardElement) {
-      console.error('Stripe no está configurado aún.');
       return;
     }
 
-    const { token, error } = await this.stripe.createToken(this.cardElement);
+    const { error, token } = await this.stripe.createToken(this.cardElement);
 
     if (error) {
-      console.error('Error al crear token:', error);
     } else {
-      console.log('Token creado:', token);
-      this.procesarPago(token.id);
+      const paymentIntentDTO = {
+        description: "Compra de boleto de avión",
+        currency: "PEN",
+        boletoId: this.boletoId,
+        paymentMethodData: {
+          type: "card",
+          token: token.id
+        }
+      };
+
+      this.stripeService.createPaymentIntent(paymentIntentDTO).subscribe(response => {
+        this.confirmPayment(response.client_secret, response.id);
+      }, error => {
+      });
     }
   }
 
-  procesarPago(tokenId: string) {
-    console.log('Procesando pago con tokenId:', tokenId);
+  confirmPayment(clientSecret: string, paymentIntentId: string) {
+    Swal.fire({
+      title: 'Confirmar Pago',
+      text: "¿Deseas confirmar el pago?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.stripeService.confirmPaymentIntent(paymentIntentId).subscribe(response => {
+          Swal.fire('¡Pago confirmado!', 'Tu pago ha sido procesado con éxito.', 'success').then(() => {
+            this.router.navigate(['/main'], { replaceUrl: true });
+          });
+        }, error => {
+          Swal.fire('Error', 'Hubo un error al confirmar tu pago.', 'error');
+        });
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        this.stripeService.cancelPaymentIntent(paymentIntentId).subscribe(response => {
+          Swal.fire('Pago cancelado', 'Tu pago ha sido cancelado.', 'info');
+        }, error => {
+          Swal.fire('Error', 'Hubo un error al cancelar tu pago.', 'error');
+        });
+      }
+    });
+  }
+  
+  getBoletoDetails(id: number) {
+    this.http.get<Boleto>(`http://localhost:8090/api/boletos/boleto/listar/${id}`).subscribe(
+      (response) => {
+        this.boleto = response;
+      },
+      (error) => {
+      }
+    );
+  }
 
-    this.stripeService.confirmPaymentIntent(tokenId)
-      .subscribe(response => {
-        console.log('Respuesta del backend:', response);
-      }, error => {
-        console.error('Error al confirmar el pago en el backend:', error);
-      });
+  toggleDetalle() {
+    this.mostrarDetalle = !this.mostrarDetalle;
+  }
+
+  toggleDetalleAdicional() {
+    this.mostrarDetalleAdicional = !this.mostrarDetalleAdicional;
   }
 }

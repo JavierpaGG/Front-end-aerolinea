@@ -1,12 +1,33 @@
 .nav-item .nav-link.active {
-    border-bottom: 0.5vh solid #333; /* Establece el borde inferior con un grosor del 0.5% del alto de la ventana */
-    border-radius: 5px 5px 0 0; /* Esquinas redondeadas */
-    padding-bottom: 5px; /* Espacio entre el borde y el texto */
-  }
-  
-  .nav-item .nav-link {
-    transition: border-bottom-color 0.3s ease-in-out; /* Agrega una transición suave para el color del borde */
-  }
-  .navbar-brand img {
-    width: 25vh
-  }
+  border-bottom: 0.5vh solid #d4d4d4;
+  border-radius: 5px 5px 0 0; 
+  padding-bottom: 5px; 
+}
+
+.nav-item .nav-link {
+  transition: border-bottom-color 0.3s ease-in-out; 
+  color: #dfdee7; 
+}
+
+.navbar-brand img {
+  width: 200px;
+}
+
+.navbar-collapse {
+  justify-content: flex-end; /* Alinear el contenido del menú a la derecha */
+}
+
+.form-control {
+  border-color: #eaecef; /* Color de borde gris claro para el input de búsqueda */
+  color: #dfdee7; /* Color de texto para el input de búsqueda */
+}
+
+.btn-outline-light {
+  border-color: #eaecef; /* Color de borde gris claro para el botón de búsqueda */
+  color: #dfdee7; /* Color de texto para el botón de búsqueda */
+}
+
+.btn-outline-light:hover {
+  background-color: #eaecef; /* Cambio de color de fondo al pasar el mouse */
+  color: #0056b3; /* Cambio de color de texto al pasar el mouse */
+}

@@ -1,8 +1,24 @@
+
+.seat {
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #5e6eff;
+  background-color: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  font-size: 16px;
+}
 .seat-map {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  
 }
 
 .section {
@@ -12,57 +28,130 @@
   gap: 10px;
   padding: 10px;
   background-color: #f0f0f0;
-  border-radius: 10px;
-  border: 1px solid #ccc;
 }
-
-.section::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: -10px;
-  transform: translateY(-50%);
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: #ccc; /* Simulación de la ventana en el avión */
-}
-
-.section::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: -10px;
-  transform: translateY(-50%);
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: #ccc; /* Simulación de la ventana en el avión */
-}
-
-.seat {
-  width: 60px;
-  height: 60px;
-  text-align: center;
+.section1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #aaa;
-  background-color: #fff;
-  border-radius: 50%;
-  cursor: pointer;
-  position: relative;
-  font-size: 16px;
+  gap: 10px;
+  padding: 10px;
+  background-color: #c9c4c4;
+
 }
+.section2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  background-color: #a09e9e;
+
+}
+
+.seat-category {
+  margin-bottom: 20px;
+  
+}
+
 
 .seat.selected {
-  background-color: #4caf50; /* Color para el asiento seleccionado */
+  background-color: #5e6eff; /* Color de fondo cuando el asiento está seleccionado */
+  color: #fff; /* Color de texto cuando el asiento está seleccionado */
 }
-
+.seat:hover {
+  background-color: #e0e0e0; /* Color de fondo al pasar el mouse sobre el asiento */
+}
 .seat.available {
-  background-color: #e0e0e0; /* Color para el asiento disponible */
+  background-color: #ffffff; /* Color de fondo cuando el asiento está disponible */
 }
-
+.seat.available:hover {
+  background-color: #d6d6d6; /* Color de fondo cuando el asiento está disponible */
+  width: 70px;
+  height: 70px;
+}
 .seat.unavailable {
   background-color: #f44336; /* Color para el asiento no disponible */
 }
+
+/* sweetalert2.css */
+.swal2-popup {
+  font-size: 1rem;
+}
+
+.swal2-title {
+  font-size: 1.5rem;
+  color: #4caf50; /* Color para el título */
+}
+
+.swal2-content {
+  font-size: 1rem;
+  color: #333; /* Color para el contenido */
+}
+
+.swal2-icon {
+  font-size: 2rem;
+  color: #4caf50; /* Color para el icono */
+}
+
+.swal2-confirm {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #4caf50; /* Color para el botón de confirmación */
+  border-color: #4caf50; /* Color del borde del botón de confirmación */
+}
+
+.swal2-cancel {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #f44336; /* Color para el botón de cancelación */
+  border-color: #f44336; /* Color del borde del botón de cancelación */
+}
+
+.btn-gradient-seleccionar {
+  background: linear-gradient(to right, #66c7ff, #5e6eff);
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  
+}
+
+.btn-gradient-seleccionar:hover {
+  background: linear-gradient(to left, #66c7ff, #5e6eff);
+}
+
+.btn-gradient-agregar {
+  background: linear-gradient(to right,#ff5454, #ff4e4e);
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  
+}
+
+.btn-gradient-agregar:hover {
+  background: linear-gradient(to left, #ff5454, #ff4e4e);
+}
+
+.btn-gradient-comprar {
+  background: linear-gradient(to right,#4b27eb, #540bb4);
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  
+}
+
+.btn-gradient-comprar:hover {
+  background: linear-gradient(to left, #4b27eb, #540bb4);
+}
+

@@ -1,11 +1,11 @@
-<header>
-  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: white">
+<header style="background-color: #10004f; /* Fondo de header */">
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: transparent;">
     <div class="container">
       <!-- Logo -->
       <a class="navbar-brand" href="#">
-        <img src="assets/Logo.png" alt="Logo" width="100">
+        <img src="assets/Logo-Photoroom.png" alt="Logo" width="100">
       </a>
-      <!-- Botón de hamburguesa para dispositivos móviles -->
+      <!-- Boton Para dispositivos móviles -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -13,24 +13,18 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" routerLink="/main" routerLinkActive="active">Inicio</a>
+            <a class="nav-link" routerLink="/main" routerLinkActive="active" style="color: #dfdee7;">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/hospedaje" routerLinkActive="active">Hospedaje</a>
+            <a class="nav-link" routerLink="/hospedaje" routerLinkActive="active" style="color: #dfdee7;">Hospedaje</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/vuelos" routerLinkActive="active">Vuelos</a>
+            <a class="nav-link" routerLink="/vuelos" routerLinkActive="active" style="color: #dfdee7;">Vuelos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+            <a class="nav-link" routerLink="/login" routerLinkActive="active" style="color: #dfdee7;">Iniciar Sesión</a>
           </li>
         </ul>
-        <form class="d-flex ms-3" (submit)="onSearch(searchInput.value)">
-          <input #searchInput class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
-          <button class="btn btn-outline-success" type="submit">
-            <i class="fa fa-search"></i>
-          </button>
-        </form>
       </div>
     </div>
   </nav>

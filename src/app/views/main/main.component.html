@@ -1,86 +1,58 @@
-<div class="center-flex">
-  
-  <app-header/>
+<div >
+  <app-header></app-header>
 
-  <div class="image-container"></div>
-
-  <div class="content">
-    <div>
-      <div class="info-box">
-        <div>
-        <p class="aeropuerto-salida">Aeropuerto de salida</p>
-        <p class="pais-aeropuerto">Peru (PER)</p>
-        <p class="name-aeropuerto">Aeropuerto Jorge Chavez - PERU</p>
-        <p class="aeropuerto-llegada">Aeropuerto de llegada</p>
+  <div id="carouselExampleIndicators" class="carousel slide mt-3" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="../../../assets/jumbo-jet-volando-cielo.jpg" class="d-block w-100 img-carousel" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h1>¡Nunca es tarde para viajar!</h1>
+          <div class="box-container">
+            <div class="box">
+              <h4>+7M Pasajeros</h4>
+              <p>Más de 5 millones de pasajeros transportados en 2022</p>
+            </div>
+            <div class="box">
+              <h4>+44 Destinos</h4>
+              <p>Más de 5 millones de pasajeros transportados en 2022</p>
+            </div>
+            <div class="box">
+              <h4>+56 Unidades</h4>
+              <p>Más de 5 millones de pasajeros transportados en 2022</p>
+            </div>
+          </div>
         </div>
-        <div>
-          <mat-form-field class="form-field">
-            <mat-label>Escoge una fecha</mat-label>
-            <input matInput [matDatepicker]="picker">
-            <mat-datepicker-toggle matIconSuffix [for]="picker">
-              <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-            </mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
       </div>
-      <div>
 
-        <mat-form-field class="form-field">
-          <mat-label>Escoge una opción</mat-label>
-          <mat-select>
-            <mat-option *ngFor="let optionsClase of options" [value]="optionsClase.value">
-              {{ optionsClase.viewValue }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        
+      <div class="carousel-item">
+        <img src="../../../assets/belice.jpg" class="d-block w-100 img-carousel" alt="Belice">
+        <div class="carousel-caption d-none d-md-block">
+          <h1>Bienvenido a Belice</h1>
+          <p>Descubre las maravillas naturales de Belice este verano</p>
+        </div>
       </div>
-      <div>
 
-        <mat-form-field class="form-field">
-          <mat-label>Pasajeros</mat-label>
-          <mat-select>
-            <mat-option *ngFor="let optionsPasajeros of options" [value]="optionsPasajeros.value">
-              {{ optionsPasajeros.viewValue }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        
-      </div>
-         <div class="boton-buscar-vuelo">
-        <button mat-button class=".boton-buscar-vuelo button">Buscar Vuelo</button>
-       </div>
-      </div>
-      <div class="overlay-content">
-        <h1>¡Nunca es tarde para viajar!</h1>
-        <div class="box-container">
-          <div class="box">
-            <h4>+7M Pasajeros</h4>
-            <p>Más de 5 millones de pasajeros transportados en 2022</p>
-          </div>
-          <div class="box">
-            <h4>+44 Destinos</h4>
-            <p>Más de 5 millones de pasajeros transportados en 2022</p>
-          </div>
-          <div class="box">
-            <h4>+56 Unidades</h4>
-            <p>Más de 5 millones de pasajeros transportados en 2022</p>
-          </div>
+      <div class="carousel-item">
+        <img src="../../../assets/jumbo-jet-volando-cielo.jpg" class="d-block w-100 img-carousel" alt="Otra Imagen">
+        <div class="carousel-caption d-none d-md-block">
+          <h1>Otra Diapositiva</h1>
+          <p>Texto de ejemplo para otra diapositiva</p>
         </div>
       </div>
     </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
   </div>
+
+  <div class="container mt-4">
+    <app-card></app-card>
+  </div>
+
+  <app-footer></app-footer>
 </div>
-
-<div class="container">
-
-  <app-card/>
-  
-</div>
-
-<div>
-
-  <app-footer/>
-
-</div>
-

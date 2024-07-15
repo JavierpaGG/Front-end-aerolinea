@@ -13,42 +13,59 @@
   </div>
 </header>
 
+<!-- register.component.html -->
 <div class="content-wrapper">
-<div class="bg-light d-flex align-items-center justify-content-center vh-100">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-body">
-            <h2 class="card-title text-center mb-4">Crear una cuenta</h2>
-            <form>
-              <div class="form-group">
-                <label for="name"><i class="fas fa-user"></i> Nombre</label>
-                <input type="text" class="form-control" id="name" placeholder="Nombre">
-              </div>
-              <div class="form-group">
-                <label for="email"><i class="fas fa-envelope"></i> Correo Electrónico</label>
-                <input type="email" class="form-control" id="email" placeholder="nombre@dominio.com">
-              </div>
-              <div class="form-group">
-                <label for="password"><i class="fas fa-lock"></i> Contraseña</label>
-                <input type="password" class="form-control" id="password" placeholder="**********">
-              </div>
-              <div class="form-group">
-                <label for="confirm-password"><i class="fas fa-lock"></i> Confirmar Contraseña</label>
-                <input type="password" class="form-control" id="confirm-password" placeholder="**********">
-              </div>
-              <button type="submit" class="btn btn-primary btn-block">
-                <i class="fas fa-user"></i> Registrarse
-              </button>
-            </form>
+  <div class="bg-light d-flex align-items-center justify-content-center vh-100">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h2 class="card-title text-center mb-4">Crear una cuenta</h2>
+              <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                  <label for="nombre"><i class="fas fa-user"></i> Nombre</label>
+                  <input type="text" class="form-control" id="nombre" placeholder="Nombre" formControlName="nombre">
+                </div>
+                <div class="form-group">
+                  <label for="direccion"><i class="fas fa-map-marker-alt"></i> Dirección</label>
+                  <input type="text" class="form-control" id="direccion" placeholder="Dirección" formControlName="direccion">
+                </div>
+                <div class="form-group">
+                  <label for="telefono"><i class="fas fa-phone"></i> Teléfono</label>
+                  <input type="text" class="form-control" id="telefono" placeholder="Teléfono" formControlName="telefono">
+                </div>
+                <div class="form-group">
+                  <label for="username"><i class="fas fa-user-circle"></i> Nombre de Usuario</label>
+                  <input type="text" class="form-control" id="username" placeholder="Nombre de Usuario" formControlName="username">
+                </div>
+                <div class="form-group">
+                  <label for="dni"><i class="fas fa-user-circle"></i> DNI</label>
+                  <input type="text" class="form-control" id="id" placeholder="12345678" formControlName="id">
+                </div>
+                <div class="form-group">
+                  <label for="email"><i class="fas fa-envelope"></i> Correo Electrónico</label>
+                  <input type="email" class="form-control" id="email" placeholder="nombre@dominio.com" formControlName="email">
+                </div>
+                <div class="form-group">
+                  <label for="password"><i class="fas fa-lock"></i> Contraseña</label>
+                  <input type="password" class="form-control" id="password" placeholder="**********" formControlName="password">
+                </div>
+                <div class="form-group">
+                  <label for="confirmPassword"><i class="fas fa-lock"></i> Confirmar Contraseña</label>
+                  <input type="password" class="form-control" id="confirmPassword" placeholder="**********" formControlName="confirmPassword">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">
+                  <i class="fas fa-user"></i> Registrarse
+                </button>
+              </form>
+            </div>
           </div>
+          <p class="text-center text-muted mt-3">
+            &copy;2024 IRAERO. Todos los derechos reservados.
+          </p>
         </div>
-        <p class="text-center text-muted mt-3">
-          &copy;2024 IRAERO. Todos los derechos reservados.
-        </p>
       </div>
     </div>
   </div>
-</div>
 </div>

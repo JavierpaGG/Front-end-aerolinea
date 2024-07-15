@@ -1,4 +1,3 @@
-<!-- header.component.html -->
 <header class="header">
   <div class="container-header">
     <div class="row">
@@ -13,7 +12,6 @@
   </div>
 </header>
 
-<!-- login.component.html -->
 <div class="content-wrapper">
   <div class="container">
     <div class="row">
@@ -21,17 +19,17 @@
         <div class="card login-card mt-5">
           <div class="card-body">
             <h2 class="card-title text-center">Inicio de sesión</h2>
-            <form>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
               <div class="form-group">
-                <label for="email"><i class="fas fa-envelope"></i> Correo electrónico</label>
-                <input type="email" class="form-control" id="email" placeholder="nombre@dominio.com">
+                <label for="username"><i class="fas fa-envelope"></i> Nombre de usuario</label>
+                <input formControlName="username" type="text" class="form-control" id="username" placeholder="Username">
               </div>
               <div class="form-group">
                 <label for="password"><i class="fas fa-lock"></i> Contraseña</label>
-                <input type="password" class="form-control" id="password" placeholder="Contraseña">
+                <input formControlName="password" type="password" class="form-control" id="password" placeholder="Contraseña">
               </div>
               <div class="d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-sign-in-alt"></i> Iniciar</button>
+                <button type="submit" class="btn btn-primary btn-block" [disabled]="loginForm.invalid"><i class="fas fa-sign-in-alt"></i> Iniciar</button>
               </div>
             </form>
             <div class="text-center mt-3">
@@ -44,7 +42,7 @@
         </div>
         <div>
           <p class="text-center text-muted mt-3">
-          &copy;2024 IRAERO. Todos los derechos reservados.
+            &copy;2024 IRAERO. Todos los derechos reservados.
           </p>
         </div>
       </div>

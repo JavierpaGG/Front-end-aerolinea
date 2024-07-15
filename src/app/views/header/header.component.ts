@@ -12,9 +12,4 @@ import { RouterModule } from '@angular/router';
 export class HeaderComponent {
   constructor(private router: Router) {}
 
-  onSearch(searchTerm: string): void {
-    if (searchTerm) {
-      this.router.navigate(['/search'], { queryParams: { query: searchTerm } });
-    }
-  }
 }
