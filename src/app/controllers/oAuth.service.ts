@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class OAuthService {
-
   private authUrl = 'http://localhost:8090/api/security/oauth/token';
   private clientId = 'frontedapp';
   private clientSecret = '12345';
@@ -25,5 +24,35 @@ export class OAuthService {
       .set('password', password);
 
     return this.http.post<any>(this.authUrl, body.toString(), { headers });
+  }
+
+  loginUser(token: any) {
+    localStorage.setItem('access_token', token);
+  }
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('access_token');
+  }
+
+  getToken1(): string | null {
+    return localStorage.getItem('access_token');
+  }
+
+  logout() {
+    localStorage.removeItem('access_token');
+  }
+
+  decodeToken(token: string): any {
+    const payload = token.split('.')[1];
+    return JSON.parse(atob(payload));
+  }
+
+  getUserRole(): string | null {
+    const token = this.getToken1();
+    if (token) {
+      const decodedToken = this.decodeToken(token);
+      return decodedToken.authorities ? decodedToken.authorities[0] : null;
+    }
+    return null;
   }
 }

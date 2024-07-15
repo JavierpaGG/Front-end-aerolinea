@@ -31,6 +31,7 @@ export class LoginComponent {
         (response) => {
           console.log('Token response:', response);
           localStorage.setItem('access_token', response.access_token);
+          localStorage.setItem('dni', response.dni);
 
           // Decodificar el token para obtener los roles del usuario
           const decodedToken = this.decodeToken(response.access_token);
